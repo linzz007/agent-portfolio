@@ -1,31 +1,51 @@
-# CoursePilot Agent Runtime
+# CoursePilot Agent Runtime | 课程学习 Agent Runtime
 
-面向大学课程学习场景的 RAG + Memory + MCP 多智能体学习系统，覆盖知识讲解、练习生成、答案批改、薄弱点强化和长轮次学习反馈。
+这是一个面向大学课程学习场景的 **RAG + Memory + MCP 多角色 Agent 系统**。系统覆盖知识讲解、练习生成、答案批改、薄弱点复习和长轮次学习反馈，重点展示一个垂直学习 Agent 如何做编排、检索、记忆、上下文预算和运行留痕。
 
-## Highlights
+## 面试官先看
 
-- **Agent Orchestration**：Router、Tutor、QuizMaster、Grader 等角色由 OrchestrationRunner 统一调度。
-- **Hybrid RAG**：支持 Dense / BM25 / Hybrid Retrieval，结合课程资料切块、向量索引和 gold_doc_ids 检索评测。
-- **Memory System**：使用 SQLite 维护 episodes、user_profiles、weak_points、concept_mastery 等学习画像。
-- **MCP Tools**：calculator、memory_search、filewriter、mindmap_generator 等能力通过 MCP 工具层接入。
-- **Context Budgeting**：history / RAG / memory 分层上下文裁剪，记录 context budget 和 trace。
-- **RunArtifact**：结构化记录 retrieval、tool calls、context budget、output、error 和 metrics。
+- **业务问题**：课程学习不是单轮问答，学生会连续追问、做题、提交答案、暴露薄弱点，系统需要长期记住学习状态并动态组织上下文。
+- **技术重点**：OrchestrationRunner 统一调度 Router / Tutor / QuizMaster / Grader，RAG、Memory、MCP 工具和上下文预算都进入可观测运行链路。
+- **可追问点**：Hybrid RAG 怎么做、Memory 写什么不写什么、长对话如何裁剪、MCP 工具如何解耦、RunArtifact 怎么帮助定位问题。
 
-## Quick Start
+## 核心设计
+
+1. **多角色编排**：Router 判断任务类型，Tutor 负责讲解，QuizMaster 负责出题，Grader 负责批改和反馈，OrchestrationRunner 统一编排。
+2. **Hybrid RAG**：课程资料经过解析、切块、向量建库和在线检索，支持 Dense / BM25 / Hybrid Retrieval，并提供 gold_doc_ids 检索评测。
+3. **学习 Memory**：用 SQLite 维护 episodes、user_profiles、weak_points、concept_mastery，支撑个性化讲解和薄弱点复习。
+4. **上下文预算**：将 history / RAG / memory 分层管理，按任务模式、token 预算和上下文压力动态裁剪，避免长轮次学习时上下文失控。
+5. **MCP 工具接入**：calculator、memory_search、filewriter、mindmap_generator 等能力通过 MCP 工具层接入，让 Agent 决策层和工具层解耦。
+6. **RunArtifact 留痕**：每轮运行记录 retrieval、tool calls、context budget、output、error 和 metrics，方便复盘和问题定位。
+
+## 面试官可看的代码入口
+
+| 文件 | 看点 |
+| --- | --- |
+| `core/orchestration/runner.py` | 多角色 Agent 编排主链路。 |
+| `core/orchestration/context_budgeter.py` | history / RAG / memory 的上下文预算和裁剪策略。 |
+| `core/agents/router.py` | 学习任务意图路由。 |
+| `core/agents/tutor.py` | 知识讲解 Agent。 |
+| `core/agents/quizmaster.py` | 练习生成 Agent。 |
+| `core/agents/grader.py` | 答案批改与反馈 Agent。 |
+| `rag/retrieve.py` | Dense / BM25 / Hybrid Retrieval 检索入口。 |
+| `memory/manager.py` | 学习记忆写入、读取和画像维护。 |
+| `mcp_tools/server_stdio.py` | MCP 工具服务入口。 |
+| `core/harness/runtime.py` | 轻量 Harness Runtime。 |
+| `core/harness/artifact.py` | RunArtifact 结构化运行记录。 |
+| `backend/api.py` | API / 流式响应入口。 |
+
+## 验证方式
 
 ```powershell
 py -3 -m pip install -r requirements.txt
-py -3 -m backend.api
-streamlit run frontend/streamlit_app.py
-```
-
-## Evaluation
-
-```powershell
-pytest
+py -3 -m pytest
 py -3 scripts/perf/eval_rag_retrieval.py
 ```
 
-## Repository Scope
+## 项目定位
 
-发布版本已移除真实 `.env`、本地 memory.db、个人学习计划和面试备考文档，只保留核心代码、公开课程 fixture、测试和可复现实验脚本。
+这个项目适合在面试中表达 **Agent Runtime + RAG/Memory 工程化** 能力。它不是只调一个模型接口，而是把学习流程拆成可维护角色，把检索、记忆、工具和上下文预算纳入统一运行链路。
+
+## 脱敏说明
+
+发布版已移除真实 `.env`、本地 memory.db、个人学习计划和面试备考文档，只保留核心代码、公开课程 fixture、测试和可复现实验脚本。
