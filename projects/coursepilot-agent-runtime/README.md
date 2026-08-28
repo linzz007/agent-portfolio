@@ -1,12 +1,12 @@
 # CoursePilot Agent Runtime | 课程学习 Agent Runtime
 
-这是一个面向大学课程学习场景的 **RAG + Memory + MCP 多角色 Agent 系统**。系统覆盖知识讲解、练习生成、答案批改、薄弱点复习和长轮次学习反馈，重点展示一个垂直学习 Agent 如何做编排、检索、记忆、上下文预算和运行留痕。
+CoursePilot 是一个面向大学课程学习场景的 RAG + Memory + MCP 多角色 Agent 系统。系统覆盖知识讲解、练习生成、答案批改、薄弱点复习和长轮次学习反馈，重点解决学习 Agent 在多轮状态、课程资料检索、个性化记忆和工具调用中的工程化问题。
 
-## 面试官先看
+## 核心问题
 
-- **业务问题**：课程学习不是单轮问答，学生会连续追问、做题、提交答案、暴露薄弱点，系统需要长期记住学习状态并动态组织上下文。
-- **技术重点**：OrchestrationRunner 统一调度 Router / Tutor / QuizMaster / Grader，RAG、Memory、MCP 工具和上下文预算都进入可观测运行链路。
-- **可追问点**：Hybrid RAG 怎么做、Memory 写什么不写什么、长对话如何裁剪、MCP 工具如何解耦、RunArtifact 怎么帮助定位问题。
+- 课程学习不是单轮问答，学生会连续追问、做题、提交答案并暴露薄弱点。
+- 学习 Agent 需要长期维护用户画像，同时根据当前任务动态组合历史对话、检索片段和记忆内容。
+- RAG、Memory、工具调用和模型输出需要进入统一运行链路，才能定位长轮次学习中的不稳定问题。
 
 ## 核心设计
 
@@ -17,9 +17,9 @@
 5. **MCP 工具接入**：calculator、memory_search、filewriter、mindmap_generator 等能力通过 MCP 工具层接入，让 Agent 决策层和工具层解耦。
 6. **RunArtifact 留痕**：每轮运行记录 retrieval、tool calls、context budget、output、error 和 metrics，方便复盘和问题定位。
 
-## 面试官可看的代码入口
+## 核心模块与代码入口
 
-| 文件 | 看点 |
+| 文件 | 作用 |
 | --- | --- |
 | `core/orchestration/runner.py` | 多角色 Agent 编排主链路。 |
 | `core/orchestration/context_budgeter.py` | history / RAG / memory 的上下文预算和裁剪策略。 |
@@ -42,9 +42,9 @@ py -3 -m pytest
 py -3 scripts/perf/eval_rag_retrieval.py
 ```
 
-## 项目定位
+## 工程价值
 
-这个项目适合在面试中表达 **Agent Runtime + RAG/Memory 工程化** 能力。它不是只调一个模型接口，而是把学习流程拆成可维护角色，把检索、记忆、工具和上下文预算纳入统一运行链路。
+项目将学习流程拆成可维护角色，把检索、记忆、工具调用和上下文预算纳入统一运行链路。RunArtifact 和 trace 记录用于沉淀每轮运行证据，支撑长轮次学习场景下的问题定位和效果分析。
 
 ## 脱敏说明
 

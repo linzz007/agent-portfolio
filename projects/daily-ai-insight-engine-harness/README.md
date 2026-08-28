@@ -1,12 +1,12 @@
 # Daily AI Insight Engine Harness | AI 舆情日报生成 Harness
 
-这是一个面向 AI 新闻与舆情日报生成场景的 **Agent Harness 机制验证项目**。系统从 RSS/API 等公开来源抓取新闻，经过数据清洗、事件结构化、洞察分析和报告生成，输出 Markdown / HTML 报告，并记录每个阶段的运行证据。
+Daily AI Insight Engine Harness 面向 AI 新闻与舆情日报生成场景，从 RSS/API 等公开来源抓取新闻，经过数据清洗、事件结构化、洞察分析和报告生成，输出 Markdown / HTML 报告，并记录每个阶段的运行证据。
 
-## 面试官先看
+## 核心问题
 
-- **业务问题**：日报生成不是“总结几条新闻”这么简单，LLM 可能跳过清洗、漏掉字段、输出格式漂移，出了错也很难复盘。
-- **技术重点**：用 State Contract、Stage Graph、Hook、Gate、Tool Gateway 和 Artifact 把固定流程做成可检查、可失败、可复盘的 Harness。
-- **可追问点**：为什么要有 Stage Gate、Hook 和 Linter；如何约束 AI Coding 修改边界；如何把确定性阶段和 LLM 阶段分开；失败时如何定位。
+- 日报生成流程包含抓取、清洗、结构化、分析和报告生成，单次模型调用难以覆盖完整链路。
+- LLM 阶段可能出现跳步、漏字段、格式漂移和不可解释失败。
+- AI Coding 迭代过程中，新增字段、stage、prompt 或工具时容易造成契约漂移。
 
 ## 核心设计
 
@@ -17,11 +17,11 @@
 5. **上下文可见性**：Context Router 按 stage 构造上下文，减少把完整 state 无差别塞给模型。
 6. **产物校验与兜底**：每个阶段通过 linter / gate 检查字段、格式和报告产物，失败时记录错误并进入可解释兜底。
 
-## 面试官可看的代码入口
+## 核心模块与代码入口
 
-| 文件 | 看点 |
+| 文件 | 作用 |
 | --- | --- |
-| `AGENTS.md` | 给 AI 编程助手的项目地图和硬性修改规则。 |
+| `AGENTS.md` | AI 编程助手的项目地图和硬性修改规则。 |
 | `CLAUDE.md` | Claude Code 风格的项目约束说明。 |
 | `src/insight_engine/harness/state.py` | State Contract 和运行状态字段。 |
 | `src/insight_engine/harness/graph.py` | Stage Graph 和阶段流转。 |
@@ -37,12 +37,12 @@
 ```powershell
 py -3 -m pytest
 py -3 scripts/harness_linter.py
-py -3 run_chat.py "帮我生成今日 AI 新闻分析报告"
+py -3 run_chat.py "生成今日 AI 新闻分析报告"
 ```
 
-## 项目定位
+## 工程价值
 
-这个项目适合在面试中解释 **Harness 从 0 到 1 的基础机制**。它比 Workbench 更小，更适合讲清楚 State、Graph、Hook、Gate、Artifact 这些概念为什么存在、解决什么问题。
+项目以较小规模验证 State、Graph、Hook、Gate、Artifact 等 Harness 基础机制。它将确定性阶段与 LLM 阶段分离，并通过阶段质量门和 linter 降低流程跳步、契约漂移和错误难定位的问题。
 
 ## 脱敏说明
 

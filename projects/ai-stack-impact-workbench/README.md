@@ -1,12 +1,12 @@
 # AI Stack Impact Workbench | 外部变化影响分析 Agent Harness
 
-这是一个面向 AI 工程师与研发/运营团队的 **外部变化影响分析系统**。项目把技术发布、政策规则、行业事件和新闻快照统一建模为 External Event，再结合企业/项目画像生成可追问、可审计、可沉淀的结构化影响报告。
+AI Stack Impact Workbench 面向 AI 工程师与研发/运营团队的持续外部变化研判场景，统一处理技术发布、政策规则、行业事件和新闻快照等外部信息。系统通过对话入口维护企业/项目画像，将外部事件转化为带证据链、风险分级和后续建议的结构化报告，并保留每轮运行的上下文、工具调用、子智能体委派与产物记录。
 
-## 面试官先看
+## 核心问题
 
-- **业务问题**：外部信息很多，但企业/项目真正关心的是“这件事和我有什么关系、风险多大、证据是什么、后续怎么跟踪”。
-- **技术重点**：不是简单新闻总结，而是用 AgentRuntime + SkillManifest + Subagent + Tool Policy + Gate 把长链路 Agent 做成可控系统。
-- **可追问点**：为什么需要 Harness、如何限制工具权限、如何构造上下文、如何让 skeptic/verifier 子智能体只看到自己该看的信息、如何记录每轮运行证据。
+- 外部信息源数量多，人工筛选与企业/项目画像匹配成本高。
+- 通用对话模型可以总结信息，但难以稳定保留证据来源、工具边界、上下文来源和运行过程。
+- 影响研判需要可回溯、可审计和可复盘，不能只依赖单次模型输出。
 
 ## 核心设计
 
@@ -17,9 +17,9 @@
 5. **上下文治理**：ContextManifest 按任务阶段构造上下文包，显式记录哪些 memory、evidence、history 被放入模型上下文。
 6. **证据优先报告**：高风险结论必须绑定 fact_id / source_ref；证据不足时降级为观察项或待确认项。
 
-## 面试官可看的代码入口
+## 核心模块与代码入口
 
-| 文件 | 看点 |
+| 文件 | 作用 |
 | --- | --- |
 | `run_policy_api.py` | 后端启动入口和对话式 Workbench 服务入口。 |
 | `src/policy_impact/app/chat_workbench_service.py` | 对话、报告、trace、artifact 的服务层组织方式。 |
@@ -41,9 +41,9 @@ py -3 scripts/run_workbench_smoke.py
 py -3 scripts/run_workbench_dialogue_acceptance.py
 ```
 
-## 项目定位
+## 工程价值
 
-这个项目适合在面试中表达 **Agent Harness / Agent Infra** 能力：我关注的不是“让模型多说几句话”，而是让 Agent 在有状态、有工具、有证据、有权限边界的业务链路里稳定运行，并且能定位问题、复盘运行、沉淀产物。
+项目重点不在于单次新闻总结，而在于把 Agent 放入有状态、有工具、有证据、有权限边界的业务链路中运行。通过 ContextManifest、ToolGateway、PermissionEngine、Gate 和 Artifact 机制，系统能够记录每轮运行证据，支持问题定位、运行复盘和报告沉淀。
 
 ## 脱敏说明
 
