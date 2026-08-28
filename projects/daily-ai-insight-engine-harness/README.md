@@ -1,4 +1,4 @@
-# Daily AI Insight Engine Harness | AI 舆情日报生成 Harness
+# Daily AI Insight Engine Harness | Daily AI Insight Engine 新闻分析 Agent Harness
 
 Daily AI Insight Engine Harness 面向 AI 新闻与舆情日报生成场景，从 RSS/API 等公开来源抓取新闻，经过数据清洗、事件结构化、洞察分析和报告生成，输出 Markdown / HTML 报告，并记录每个阶段的运行证据。
 

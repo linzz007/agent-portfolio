@@ -1,4 +1,4 @@
-# AI Stack Impact Workbench | 外部变化影响分析 Agent Harness
+# AI Stack Impact Workbench | AI 技术生态智能研判 Agent Harness
 
 AI Stack Impact Workbench 面向 AI 工程师与研发/运营团队的持续外部变化研判场景，统一处理技术发布、政策规则、行业事件和新闻快照等外部信息。系统通过对话入口维护企业/项目画像，将外部事件转化为带证据链、风险分级和后续建议的结构化报告，并保留每轮运行的上下文、工具调用、子智能体委派与产物记录。
 

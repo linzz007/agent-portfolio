@@ -1,4 +1,4 @@
-# myAgent Table Reasoning | 表格问答推理与低成本评测
+# myAgent Table Reasoning | myAgent 表格推理与低成本评测
 
 myAgent Table Reasoning 面向复杂表格问答任务，在 WTQ / TabFact / CRT 等表格推理场景中，根据问题难度和风险动态选择轻量路径、确定性算子或增强验证路径，在保证可解释性的同时降低 token 成本。
 

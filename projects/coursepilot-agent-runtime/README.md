@@ -1,4 +1,4 @@
-# CoursePilot Agent Runtime | 课程学习 Agent Runtime
+# CoursePilot Agent Runtime | 基于 RAG + Memory + MCP 的课程学习 Agent Runtime
 
 CoursePilot 是一个面向大学课程学习场景的 RAG + Memory + MCP 多角色 Agent 系统。系统覆盖知识讲解、练习生成、答案批改、薄弱点复习和长轮次学习反馈，重点解决学习 Agent 在多轮状态、课程资料检索、个性化记忆和工具调用中的工程化问题。
 
