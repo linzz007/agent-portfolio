@@ -1,0 +1,110 @@
+<!doctype html>
+<html lang="zh-CN">
+  <head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Agent Workbench</title>
+    <link rel="stylesheet" href="/static/workbench/styles.css?v=20260812-wiki-form-2" />
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <aside id="sidebar" class="sidebar">
+        <div class="brand-row">
+          <div class="brand">
+            <div class="brand-mark">A</div>
+            <div class="brand-copy">
+              <div class="brand-title">Agent Workbench</div>
+              <div class="brand-subtitle">Impact Harness / Runtime</div>
+            </div>
+          </div>
+          <button id="sidebar-toggle" class="sidebar-toggle" type="button" title="收起侧边栏" aria-label="收起侧边栏">‹</button>
+        </div>
+
+        <button id="new-session" class="new-chat" type="button"><span aria-hidden="true">+</span> 新建对话</button>
+
+        <div class="sidebar-section sessions-section">
+          <div class="section-row">
+            <div class="section-label">聊天记录</div>
+            <button id="toggle-test-sessions" class="session-filter" type="button" aria-pressed="false">显示测试</button>
+          </div>
+          <input id="session-search" class="search-input" placeholder="搜索会话" aria-label="搜索聊天记录" />
+          <div id="session-list" class="session-list"></div>
+        </div>
+
+        <div class="sidebar-footer">
+          <details class="sidebar-disclosure" open>
+            <summary>
+              <span>报告命令</span>
+              <span class="small-muted">/report</span>
+            </summary>
+            <div id="command-list" class="command-list"></div>
+          </details>
+
+          <details class="sidebar-disclosure">
+            <summary>
+              <span>工具边界</span>
+              <span id="active-skill-chip" class="small-muted">默认对话</span>
+            </summary>
+            <div id="tool-list" class="tool-list"></div>
+          </details>
+
+          <details class="sidebar-disclosure">
+            <summary>
+              <span>企业空间</span>
+              <span class="small-muted">本地</span>
+            </summary>
+            <select id="company-select" class="field-select"></select>
+            <div id="company-card" class="company-card"></div>
+          </details>
+        </div>
+      </aside>
+
+      <button id="sidebar-backdrop" class="sidebar-backdrop" type="button" aria-label="关闭侧边栏"></button>
+
+      <main class="workspace">
+        <header class="topbar">
+          <button id="mobile-sidebar-toggle" class="mobile-menu-button" type="button" title="打开侧边栏" aria-label="打开侧边栏">☰</button>
+          <div class="topbar-copy">
+            <div id="session-title" class="page-title">Agent Workbench</div>
+            <div id="session-meta" class="page-subtitle">默认对话读取 Memory 与 Wiki；输入 /report 生成可审计报告。</div>
+          </div>
+          <nav class="view-switch" aria-label="工作台页面">
+            <button class="view-tab active" type="button" data-view="chat" aria-pressed="true">对话</button>
+            <button class="view-tab" type="button" data-view="wiki" aria-pressed="false">Wiki</button>
+          </nav>
+        </header>
+
+        <section id="chat-stream" class="chat-stream" role="log" aria-live="polite" aria-label="对话消息"></section>
+        <section id="wiki-view" class="wiki-view hidden" aria-label="企业 Wiki"></section>
+
+        <footer id="composer" class="composer">
+          <div id="slash-palette" class="slash-palette hidden" role="listbox" aria-label="报告命令"></div>
+          <div class="composer-inner">
+            <div class="composer-box">
+              <div class="prompt-wrap">
+                <div id="prompt-input" class="prompt-editor" contenteditable="true" data-placeholder="直接输入问题，输入 / 选择技能命令" aria-label="消息输入" role="combobox" aria-autocomplete="list" aria-controls="slash-palette" aria-expanded="false" aria-multiline="true" spellcheck="false"></div>
+              </div>
+              <div class="composer-toolbar">
+                <div class="composer-tools">
+                  <button id="focus-slash-command" class="composer-tool-button" type="button" title="插入报告命令" aria-label="插入报告命令">/</button>
+                  <span id="composer-skill-chip" class="composer-skill-chip">默认对话</span>
+                </div>
+                <div class="composer-actions">
+                  <label class="model-picker-wrap" title="本轮使用模型">
+                    <span class="status-dot" aria-hidden="true"></span>
+                    <select id="model-picker" class="model-picker" aria-label="选择模型"></select>
+                  </label>
+                  <div id="runtime-status" class="runtime-status"></div>
+                  <button id="send-message" class="send-button" type="button" title="发送" aria-label="发送">↑</button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </footer>
+      </main>
+    </div>
+
+    <div id="toast" class="toast hidden" role="status" aria-live="polite"></div>
+    <script src="/static/workbench/app.js?v=20260812-wiki-form-2"></script>
+  </body>
+</html>

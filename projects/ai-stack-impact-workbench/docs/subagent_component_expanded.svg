@@ -1,0 +1,181 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1500" height="1080" viewBox="0 0 1500 1080" role="img" aria-labelledby="title desc">
+  <title id="title">Subagent Harness Component Expanded Diagram</title>
+  <desc id="desc">Expanded component diagram for the Agent Workbench subagent harness.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="50%" stop-color="#f7f5ff"/>
+      <stop offset="100%" stop-color="#f7fff9"/>
+    </linearGradient>
+    <filter id="shadow" x="-18%" y="-18%" width="136%" height="136%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#059669"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#d97706"/>
+    </marker>
+    <style>
+      .title { font: 700 34px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 16px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #4b5563; }
+      .section { font: 700 19px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #111827; }
+      .box-title { font: 700 16px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #111827; }
+      .box-text { font: 400 12.5px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #374151; }
+      .small { font: 400 12px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #4b5563; }
+      .mono { font: 600 12px Consolas, "Cascadia Mono", monospace; fill: #1f2937; }
+      .tag { font: 700 12px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #fff; }
+      .line { stroke: #2563eb; stroke-width: 3; fill: none; marker-end: url(#arrow); }
+      .line-purple { stroke: #7c3aed; stroke-width: 3; fill: none; marker-end: url(#arrowPurple); }
+      .line-green { stroke: #059669; stroke-width: 3; fill: none; marker-end: url(#arrowGreen); }
+      .line-amber { stroke: #d97706; stroke-width: 2.5; fill: none; marker-end: url(#arrowAmber); stroke-dasharray: 8 7; }
+    </style>
+  </defs>
+
+  <rect width="1500" height="1080" fill="url(#bg)"/>
+  <rect x="34" y="28" width="1432" height="1024" rx="30" fill="#ffffff" opacity="0.84"/>
+
+  <text x="72" y="78" class="title">Subagent Harness 组件展开图</text>
+  <text x="72" y="110" class="subtitle">这张图把“Runtime 检查”和“SubagentRunner”展开，显示当前实现里真正参与的 Harness 组件。</text>
+
+  <!-- Trigger layer -->
+  <rect x="72" y="145" width="300" height="198" rx="22" fill="#eff6ff" stroke="#93c5fd" stroke-width="2" filter="url(#shadow)"/>
+  <text x="96" y="181" class="section">A. 触发信号</text>
+  <rect x="98" y="206" width="248" height="54" rx="13" fill="#ffffff" stroke="#60a5fa" stroke-width="1.4"/>
+  <text x="118" y="231" class="box-title">用户显式要求</text>
+  <text x="118" y="251" class="box-text">“请用分析和质疑两个角度”</text>
+  <rect x="98" y="274" width="248" height="54" rx="13" fill="#ffffff" stroke="#60a5fa" stroke-width="1.4"/>
+  <text x="118" y="299" class="box-title">主 Agent 语义判断</text>
+  <text x="118" y="319" class="box-text">复杂 / 高风险 / 需证据 / 需核验</text>
+
+  <!-- Main Agent Layer -->
+  <rect x="424" y="145" width="430" height="198" rx="22" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2" filter="url(#shadow)"/>
+  <text x="448" y="181" class="section">B. Main Agent 决策层</text>
+  <rect x="450" y="206" width="176" height="92" rx="14" fill="#ffffff" stroke="#a78bfa" stroke-width="1.4"/>
+  <text x="470" y="231" class="box-title">ContextManifest</text>
+  <text x="470" y="253" class="box-text">visible context</text>
+  <text x="470" y="273" class="box-text">agent_roster</text>
+  <text x="470" y="293" class="box-text">default artifact_ref</text>
+
+  <rect x="652" y="206" width="176" height="92" rx="14" fill="#ffffff" stroke="#a78bfa" stroke-width="1.4"/>
+  <text x="672" y="231" class="box-title">AgentLoop</text>
+  <text x="672" y="253" class="box-text">只能输出结构化 action</text>
+  <text x="672" y="273" class="mono">final / delegate</text>
+  <text x="672" y="293" class="box-text">不直接创建线程</text>
+
+  <!-- Manifest Layer -->
+  <rect x="904" y="145" width="524" height="198" rx="22" fill="#f0fdfa" stroke="#5eead4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="928" y="181" class="section">C. Manifest 与角色契约</text>
+  <rect x="930" y="206" width="152" height="92" rx="14" fill="#ffffff" stroke="#2dd4bf" stroke-width="1.4"/>
+  <text x="950" y="231" class="box-title">SkillManifest</text>
+  <text x="950" y="253" class="box-text">allowed_tools</text>
+  <text x="950" y="273" class="box-text">allowed_subagents</text>
+  <text x="950" y="293" class="box-text">max budgets</text>
+
+  <rect x="1104" y="206" width="152" height="92" rx="14" fill="#ffffff" stroke="#2dd4bf" stroke-width="1.4"/>
+  <text x="1124" y="231" class="box-title">SubagentManifest</text>
+  <text x="1124" y="253" class="box-text">description</text>
+  <text x="1124" y="273" class="box-text">use_when / tools</text>
+  <text x="1124" y="293" class="box-text">output_schema</text>
+
+  <rect x="1278" y="206" width="126" height="92" rx="14" fill="#ffffff" stroke="#2dd4bf" stroke-width="1.4"/>
+  <text x="1296" y="231" class="box-title">RoleRegistry</text>
+  <text x="1296" y="253" class="box-text">collector</text>
+  <text x="1296" y="273" class="box-text">analyst</text>
+  <text x="1296" y="293" class="box-text">skeptic / verifier</text>
+
+  <!-- Delegate action -->
+  <rect x="526" y="395" width="338" height="90" rx="20" fill="#ffffff" stroke="#7c3aed" stroke-width="2.2" filter="url(#shadow)"/>
+  <text x="552" y="426" class="section">D. DelegateAction</text>
+  <text x="552" y="454" class="mono">{ type: delegate, role, task, input_artifact_refs }</text>
+  <text x="552" y="476" class="box-text">主 Agent 提议委派，真正能否执行交给 Runtime 判断。</text>
+
+  <!-- Runtime Gate -->
+  <rect x="72" y="535" width="1356" height="188" rx="24" fill="#fff7ed" stroke="#fdba74" stroke-width="2" filter="url(#shadow)"/>
+  <text x="96" y="571" class="section">E. Runtime 运行前治理：这里是“成熟度”主要来源</text>
+  <rect x="98" y="596" width="210" height="88" rx="14" fill="#ffffff" stroke="#fb923c" stroke-width="1.4"/>
+  <text x="120" y="622" class="box-title">Role Gate</text>
+  <text x="120" y="646" class="box-text">role 必须存在</text>
+  <text x="120" y="666" class="box-text">必须在 allowed_subagents</text>
+
+  <rect x="338" y="596" width="210" height="88" rx="14" fill="#ffffff" stroke="#fb923c" stroke-width="1.4"/>
+  <text x="360" y="622" class="box-title">Tool Policy</text>
+  <text x="360" y="646" class="box-text">role tools ∩ skill tools</text>
+  <text x="360" y="666" class="box-text">不能越权调用工具</text>
+
+  <rect x="578" y="596" width="210" height="88" rx="14" fill="#ffffff" stroke="#fb923c" stroke-width="1.4"/>
+  <text x="600" y="622" class="box-title">Artifact Scope</text>
+  <text x="600" y="646" class="box-text">只能读委派 artifact</text>
+  <text x="600" y="666" class="box-text">不能乱读父上下文</text>
+
+  <rect x="818" y="596" width="210" height="88" rx="14" fill="#ffffff" stroke="#fb923c" stroke-width="1.4"/>
+  <text x="840" y="622" class="box-title">Budget Gate</text>
+  <text x="840" y="646" class="box-text">max_steps</text>
+  <text x="840" y="666" class="box-text">max_model_calls / timeout</text>
+
+  <rect x="1058" y="596" width="210" height="88" rx="14" fill="#ffffff" stroke="#fb923c" stroke-width="1.4"/>
+  <text x="1080" y="622" class="box-title">PermissionEngine</text>
+  <text x="1080" y="646" class="box-text">deny → ask → allow</text>
+  <text x="1080" y="666" class="box-text">确定性拦截</text>
+
+  <!-- Execution layer -->
+  <rect x="72" y="770" width="930" height="188" rx="24" fill="#ecfdf5" stroke="#86efac" stroke-width="2" filter="url(#shadow)"/>
+  <text x="96" y="806" class="section">F. 子智能体执行层</text>
+  <rect x="98" y="832" width="196" height="86" rx="14" fill="#ffffff" stroke="#34d399" stroke-width="1.4"/>
+  <text x="120" y="858" class="box-title">TaskBrief</text>
+  <text x="120" y="882" class="box-text">role / task / budgets</text>
+  <text x="120" y="902" class="box-text">parent_run_id / span</text>
+
+  <rect x="322" y="832" width="196" height="86" rx="14" fill="#ffffff" stroke="#34d399" stroke-width="1.4"/>
+  <text x="344" y="858" class="box-title">ContextPack</text>
+  <text x="344" y="882" class="box-text">main_chat_context</text>
+  <text x="344" y="902" class="box-text">forced artifact_read</text>
+
+  <rect x="546" y="832" width="196" height="86" rx="14" fill="#ffffff" stroke="#34d399" stroke-width="1.4"/>
+  <text x="568" y="858" class="box-title">SubagentRunner</text>
+  <text x="568" y="882" class="box-text">隔离子 loop</text>
+  <text x="568" y="902" class="box-text">按 role prompt 执行</text>
+
+  <rect x="770" y="832" width="196" height="86" rx="14" fill="#ffffff" stroke="#34d399" stroke-width="1.4"/>
+  <text x="792" y="858" class="box-title">OutputSchema</text>
+  <text x="792" y="882" class="box-text">claims / counterexamples</text>
+  <text x="792" y="902" class="box-text">verdicts / evidence</text>
+
+  <!-- Return and trace layer -->
+  <rect x="1052" y="770" width="376" height="188" rx="24" fill="#fffbeb" stroke="#fbbf24" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1076" y="806" class="section">G. 回传与 Trace</text>
+  <rect x="1078" y="832" width="150" height="86" rx="14" fill="#ffffff" stroke="#f59e0b" stroke-width="1.4"/>
+  <text x="1096" y="858" class="box-title">Observation</text>
+  <text x="1096" y="882" class="box-text">回到 Main Agent</text>
+  <text x="1096" y="902" class="box-text">最终回答由主 Agent 整合</text>
+
+  <rect x="1250" y="832" width="150" height="86" rx="14" fill="#ffffff" stroke="#f59e0b" stroke-width="1.4"/>
+  <text x="1268" y="858" class="box-title">AgentStep Trace</text>
+  <text x="1268" y="882" class="box-text">subagent_plan</text>
+  <text x="1268" y="902" class="box-text">context / delegate</text>
+
+  <!-- Connecting arrows -->
+  <path d="M372 244 H414" class="line"/>
+  <path d="M854 244 H894" class="line-purple"/>
+  <path d="M694 343 V385" class="line-purple"/>
+  <path d="M864 440 C1000 440 1150 414 1165 344" class="line-purple"/>
+  <path d="M695 485 V525" class="line-purple"/>
+  <path d="M1163 684 C1163 725 200 728 196 822" class="line-amber"/>
+  <path d="M294 875 H312" class="line-green"/>
+  <path d="M518 875 H536" class="line-green"/>
+  <path d="M742 875 H760" class="line-green"/>
+  <path d="M966 875 H1042" class="line-green"/>
+  <path d="M1153 832 C1170 640 770 506 716 485" class="line-green"/>
+  <path d="M1325 832 C1320 710 1280 690 1268 684" class="line-amber"/>
+  <path d="M538 298 C510 360 515 395 526 431" class="line-purple"/>
+
+  <!-- Key message -->
+  <rect x="72" y="990" width="1356" height="42" rx="21" fill="#111827"/>
+  <text x="102" y="1017" class="tag">一句话：简单 prompt 版只有“角色 + 调用”，当前版本多了 Manifest、Gate、ContextPack、Permission、Budget、Schema、Trace，所以能作为 Harness 工程讲。</text>
+</svg>

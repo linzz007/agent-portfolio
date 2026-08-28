@@ -1,0 +1,19 @@
+[project]
+name = "policy-impact"
+version = "0.1.0"
+description = "Single-user Agent Workbench with controlled runtime, skills, context, memory, tool policy, trace, artifacts, and domain workflows."
+requires-python = ">=3.10"
+dependencies = [
+  "fastapi>=0.109.1",
+  "uvicorn[standard]>=0.27.0",
+  "streamlit>=1.31.0",
+  "pydantic>=2.6.0",
+]
+
+[tool.pytest.ini_options]
+pythonpath = [".", "src"]
+testpaths = ["tests"]
+
+[tool.ruff]
+line-length = 100
+target-version = "py310"

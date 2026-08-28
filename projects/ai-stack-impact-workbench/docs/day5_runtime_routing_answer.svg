@@ -1,0 +1,193 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="2200" height="1650" viewBox="0 0 2200 1650">
+  <defs>
+    <marker id="arrow" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto">
+      <path d="M1 1 L12 7 L1 13 Z" fill="#334155"/>
+    </marker>
+    <marker id="blue-arrow" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto">
+      <path d="M1 1 L12 7 L1 13 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="purple-arrow" markerWidth="14" markerHeight="14" refX="12" refY="7" orient="auto">
+      <path d="M1 1 L12 7 L1 13 Z" fill="#7c3aed"/>
+    </marker>
+    <style>
+      .bg { fill: #f8fafc; }
+      .title { font: 700 42px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #0f172a; }
+      .subtitle { font: 500 20px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #64748b; }
+      .lane-title { font: 700 25px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #0f172a; }
+      .lane-note { font: 500 16px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #64748b; }
+      .box-title { font: 700 20px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #0f172a; }
+      .box-text { font: 500 16px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #334155; }
+      .box-code { font: 600 15px "Cascadia Code", "Consolas", monospace; fill: #1e3a8a; }
+      .small { font: 500 14px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #64748b; }
+      .badge { font: 700 14px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #ffffff; }
+      .shared-box { fill: #eef6ff; stroke: #7aa7f7; stroke-width: 2; }
+      .chat-box { fill: #ecfdf5; stroke: #58b889; stroke-width: 2; }
+      .report-box { fill: #f5f3ff; stroke: #9b82e9; stroke-width: 2; }
+      .sub-box { fill: #fff7ed; stroke: #f0a14b; stroke-width: 2; }
+      .control-box { fill: #fff1f2; stroke: #ee8ca1; stroke-width: 2; }
+      .result-box { fill: #ecfeff; stroke: #5bbbd1; stroke-width: 2; }
+      .compare-box { fill: #ffffff; stroke: #cbd5e1; stroke-width: 1.5; }
+      .line { stroke: #334155; stroke-width: 2.5; fill: none; marker-end: url(#arrow); }
+      .blue-line { stroke: #2563eb; stroke-width: 2.5; fill: none; marker-end: url(#blue-arrow); }
+      .purple-line { stroke: #7c3aed; stroke-width: 2.5; fill: none; marker-end: url(#purple-arrow); }
+      .dash { stroke: #94a3b8; stroke-width: 2; stroke-dasharray: 8 8; fill: none; }
+      .divider { stroke: #e2e8f0; stroke-width: 2; }
+      .tag-blue { fill: #2563eb; }
+      .tag-purple { fill: #7c3aed; }
+      .tag-orange { fill: #ea8a16; }
+      .tag-green { fill: #16845b; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="2200" height="1650"/>
+
+  <text x="80" y="72" class="title">Day 5｜AgentRuntime 主链路深化：统一入口与三条执行路径</text>
+  <text x="80" y="108" class="subtitle">先由 Runtime 统一准备和治理一次 Turn，再分流到普通聊天、固定 /report Workflow 或 Loop 内动态 Subagent。</text>
+
+  <!-- Shared runtime lane -->
+  <rect x="55" y="145" width="2090" height="365" rx="24" fill="#f1f5f9" stroke="#cbd5e1" stroke-width="2"/>
+  <text x="85" y="185" class="lane-title">一、所有请求都先经过 Runtime 主链路</text>
+  <text x="85" y="216" class="lane-note">Runtime 负责控制、准备、记录和收口；它不是某一个业务函数。</text>
+
+  <rect x="85" y="255" width="260" height="155" rx="16" class="shared-box"/>
+  <text x="110" y="290" class="box-title">用户输入 / API</text>
+  <text x="110" y="325" class="box-code">POST /query</text>
+  <text x="110" y="355" class="box-text">普通问题或 /report</text>
+  <text x="110" y="382" class="box-text">SSE 负责流式返回</text>
+
+  <rect x="395" y="255" width="300" height="155" rx="16" class="shared-box"/>
+  <text x="420" y="290" class="box-title">AgentRuntime.run_turn</text>
+  <text x="420" y="325" class="box-text">统一入口</text>
+  <text x="420" y="353" class="box-text">校验请求、绑定公司/会话</text>
+  <text x="420" y="381" class="box-text">连接 Model / Memory / Tools</text>
+
+  <rect x="745" y="255" width="330" height="155" rx="16" class="shared-box"/>
+  <text x="770" y="290" class="box-title">TurnCoordinator.prepare_turn</text>
+  <text x="770" y="322" class="box-text">解析 Slash、规范化 skill</text>
+  <text x="770" y="350" class="box-text">SkillRegistry.resolve_skill</text>
+  <text x="770" y="378" class="box-text">准备 Executor + Run 计划</text>
+
+  <rect x="1125" y="255" width="330" height="155" rx="16" class="shared-box"/>
+  <text x="1150" y="290" class="box-title">创建 AgentRun</text>
+  <text x="1150" y="322" class="box-text">保存 run_id / skill / model</text>
+  <text x="1150" y="350" class="box-text">执行前 Hook 与权限边界</text>
+  <text x="1150" y="378" class="box-text">锁定并 claim 当前 Run</text>
+
+  <rect x="1505" y="255" width="300" height="155" rx="16" class="shared-box"/>
+  <text x="1530" y="290" class="box-title">TurnCoordinator.execute</text>
+  <text x="1530" y="322" class="box-text">记录 intent / skill 选择</text>
+  <text x="1530" y="350" class="box-text">build ContextManifest</text>
+  <text x="1530" y="378" class="box-text">Executor.execute(context)</text>
+
+  <rect x="1855" y="255" width="250" height="155" rx="16" class="control-box"/>
+  <text x="1880" y="290" class="box-title">统一治理</text>
+  <text x="1880" y="323" class="box-text">Hook / Gate</text>
+  <text x="1880" y="351" class="box-text">Trace / Memory</text>
+  <text x="1880" y="379" class="box-text">Stop / finalize</text>
+
+  <path d="M345 332 H395" class="line"/>
+  <path d="M695 332 H745" class="line"/>
+  <path d="M1075 332 H1125" class="line"/>
+  <path d="M1455 332 H1505" class="line"/>
+  <path d="M1805 332 H1855" class="line"/>
+
+  <!-- Branch divider -->
+  <line x1="80" y1="545" x2="2120" y2="545" class="divider"/>
+  <text x="85" y="585" class="lane-title">二、Runtime 分流：三种路径的区别</text>
+  <text x="85" y="615" class="lane-note">三条路径都从同一个 Runtime 入口开始，区别在于选中的 Skill/Executor 以及 Loop 内部是否继续委派。</text>
+
+  <!-- General chat lane -->
+  <rect x="70" y="650" width="660" height="590" rx="22" fill="#f0fdf4" stroke="#86efac" stroke-width="2"/>
+  <rect x="95" y="675" width="140" height="30" rx="15" class="tag-green"/>
+  <text x="165" y="696" text-anchor="middle" class="badge">普通聊天</text>
+  <text x="95" y="745" class="lane-title">没有 Slash Command</text>
+  <text x="95" y="775" class="lane-note">默认路由到 general_chat</text>
+
+  <rect x="100" y="810" width="600" height="90" rx="14" class="chat-box"/>
+  <text x="125" y="845" class="box-title">GeneralChatExecutor</text>
+  <text x="125" y="875" class="box-code">_run_general_chat_agent_loop</text>
+
+  <rect x="100" y="930" width="265" height="95" rx="14" class="chat-box"/>
+  <text x="125" y="965" class="box-title">Main AgentLoop</text>
+  <text x="125" y="995" class="box-text">model_call(action)</text>
+
+  <rect x="405" y="930" width="265" height="95" rx="14" class="chat-box"/>
+  <text x="430" y="965" class="box-title">FinalAction</text>
+  <text x="430" y="995" class="box-text">直接生成答案</text>
+
+  <rect x="100" y="1055" width="570" height="125" rx="14" class="control-box"/>
+  <text x="125" y="1090" class="box-title">如果不是 FinalAction</text>
+  <text x="125" y="1122" class="box-text">ToolCallAction → ToolGateway → 观察结果 → 回到 Loop</text>
+  <text x="125" y="1152" class="box-text">DelegateAction → 动态启动 Subagent → 结果回填 → 回到 Loop</text>
+
+  <path d="M400 900 V930" class="green-line" style="stroke:#16845b;stroke-width:2.5;fill:none;marker-end:url(#arrow)"/>
+  <path d="M365 978 H405" class="green-line" style="stroke:#16845b;stroke-width:2.5;fill:none;marker-end:url(#arrow)"/>
+  <path d="M235 1025 V1055" class="green-line" style="stroke:#16845b;stroke-width:2.5;fill:none;marker-end:url(#arrow)"/>
+
+  <!-- Report lane -->
+  <rect x="770" y="650" width="660" height="590" rx="22" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2"/>
+  <rect x="795" y="675" width="130" height="30" rx="15" class="tag-purple"/>
+  <text x="860" y="696" text-anchor="middle" class="badge">/report</text>
+  <text x="795" y="745" class="lane-title">显式 Slash Skill</text>
+  <text x="795" y="775" class="lane-note">SkillRegistry 选择 external_impact_report</text>
+
+  <rect x="800" y="810" width="600" height="90" rx="14" class="report-box"/>
+  <text x="825" y="845" class="box-title">ExternalImpactReportExecutor</text>
+  <text x="825" y="875" class="box-code">_run_external_impact_report</text>
+
+  <rect x="800" y="930" width="600" height="95" rx="14" class="report-box"/>
+  <text x="825" y="965" class="box-title">Report AgentLoop</text>
+  <text x="825" y="995" class="box-text">通过受限 report_workflow.run 工具进入 Workflow</text>
+
+  <rect x="800" y="1055" width="600" height="125" rx="14" class="report-box"/>
+  <text x="825" y="1090" class="box-title">固定 Report Workflow</text>
+  <text x="825" y="1122" class="box-text">抓取 → 清洗 → 去重 → 证据绑定</text>
+  <text x="825" y="1152" class="box-text">画像匹配 → 影响评分 → Markdown/HTML 报告</text>
+
+  <path d="M1100 900 V930" class="purple-line"/>
+  <path d="M1100 1025 V1055" class="purple-line"/>
+
+  <!-- Subagent lane -->
+  <rect x="1470" y="650" width="660" height="590" rx="22" fill="#fff7ed" stroke="#fdba74" stroke-width="2"/>
+  <rect x="1495" y="675" width="185" height="30" rx="15" class="tag-orange"/>
+  <text x="1587" y="696" text-anchor="middle" class="badge">Loop 内动态委派</text>
+  <text x="1495" y="745" class="lane-title">不是独立入口</text>
+  <text x="1495" y="775" class="lane-note">主 Agent 一次 model_call 输出 DelegateAction 后触发</text>
+
+  <rect x="1500" y="810" width="600" height="90" rx="14" class="sub-box"/>
+  <text x="1525" y="845" class="box-title">DelegateAction</text>
+  <text x="1525" y="875" class="box-text">主 Agent 判断：需要分析 / 质疑 / 验证等角色</text>
+
+  <rect x="1500" y="930" width="285" height="95" rx="14" class="sub-box"/>
+  <text x="1525" y="965" class="box-title">QuerySubagentPlanner</text>
+  <text x="1525" y="995" class="box-text">生成角色、任务、触发原因</text>
+
+  <rect x="1815" y="930" width="285" height="95" rx="14" class="sub-box"/>
+  <text x="1840" y="965" class="box-title">SubagentRunner</text>
+  <text x="1840" y="995" class="box-text">隔离 Context + 工具权限</text>
+
+  <rect x="1500" y="1055" width="600" height="125" rx="14" class="sub-box"/>
+  <text x="1525" y="1090" class="box-title">SubagentResult 回填</text>
+  <text x="1525" y="1122" class="box-text">子 Agent 输出 schema 结果 → 记录 delegate Trace</text>
+  <text x="1525" y="1152" class="box-text">回到 Main AgentLoop 整合 → FinalAction</text>
+
+  <path d="M1800 900 V930" class="line"/>
+  <path d="M1785 978 H1815" class="line"/>
+  <path d="M1960 1025 V1055" class="line"/>
+  <path d="M1640 1025 V1055" class="line"/>
+
+  <!-- convergence -->
+  <path d="M400 1240 V1285 H1100" class="line"/>
+  <path d="M1100 1240 V1285" class="purple-line"/>
+  <path d="M1800 1240 V1285 H1100" class="line"/>
+  <rect x="770" y="1300" width="660" height="105" rx="18" class="result-box"/>
+  <text x="1100" y="1340" text-anchor="middle" class="box-title">统一收口：Runtime finalize</text>
+  <text x="1100" y="1372" text-anchor="middle" class="box-text">保存 Assistant Message / Memory / Trace / Gate / Artifact，返回 answer + citations + artifacts</text>
+
+  <!-- bottom compare -->
+  <rect x="70" y="1450" width="2060" height="145" rx="18" class="compare-box"/>
+  <text x="100" y="1490" class="box-title">面试验收：Runtime 和普通 Workflow 最大区别</text>
+  <text x="100" y="1522" class="box-text">Runtime 是跨业务的统一控制入口：负责请求校验、Skill 路由、Context、权限、Loop、Memory、Trace 和最终收口。</text>
+  <text x="100" y="1552" class="box-text">Workflow 是某个业务 Skill 内部的固定执行程序：只负责把“外部影响分析”按既定阶段跑完，并产出报告。</text>
+  <text x="100" y="1582" class="box-code">一句话：Runtime 决定“这轮怎么受控地运行”；Workflow 决定“这个业务具体按哪些阶段完成”。</text>
+</svg>

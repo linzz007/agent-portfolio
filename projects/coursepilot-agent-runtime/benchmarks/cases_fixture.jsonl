@@ -1,0 +1,6 @@
+{"case_id":"fixture_rank_01","mode":"learn","course_name":"matrix_fixture","message":"What is the rank of a matrix, and how can row echelon form be used to compute it?","history":[]}
+{"case_id":"fixture_rank_02","mode":"learn","course_name":"matrix_fixture","message":"Why do elementary row transformations not change matrix rank?","history":[]}
+{"case_id":"fixture_linear_01","mode":"learn","course_name":"matrix_fixture","message":"What is the relationship between linear dependence and column rank?","history":[]}
+{"case_id":"fixture_fullrank_01","mode":"learn","course_name":"matrix_fixture","message":"What is the relationship between full rank and invertibility for a square matrix?","history":[]}
+{"case_id":"fixture_eigen_01","mode":"learn","course_name":"matrix_fixture","message":"What are eigenvalues and eigenvectors of a square matrix?","history":[]}
+{"case_id":"fixture_norm_01","mode":"learn","course_name":"matrix_fixture","message":"How is the Frobenius norm defined?","history":[]}

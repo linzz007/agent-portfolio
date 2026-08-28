@@ -1,0 +1,201 @@
+{
+  "news_sources": [
+    {
+      "source_id": "anthropic_claude_code_releases",
+      "name": "Claude Code Releases",
+      "level": "L2",
+      "type": "rss_atom",
+      "url": "https://github.com/anthropics/claude-code/releases.atom",
+      "allowed_domains": ["github.com"],
+      "topics": ["agent", "developer_tools", "claude_code"],
+      "max_items": 10,
+      "enabled": true
+    },
+    {
+      "source_id": "openai_codex_releases",
+      "name": "OpenAI Codex Releases",
+      "level": "L2",
+      "type": "rss_atom",
+      "url": "https://github.com/openai/codex/releases.atom",
+      "allowed_domains": ["github.com"],
+      "topics": ["agent", "developer_tools", "codex"],
+      "max_items": 10,
+      "enabled": true
+    },
+    {
+      "source_id": "langgraph_releases",
+      "name": "LangGraph Releases",
+      "level": "L2",
+      "type": "rss_atom",
+      "url": "https://github.com/langchain-ai/langgraph/releases.atom",
+      "allowed_domains": ["github.com"],
+      "topics": ["agent_runtime", "agent_orchestration"],
+      "max_items": 10,
+      "enabled": true
+    },
+    {
+      "source_id": "mcp_specification_releases",
+      "name": "Model Context Protocol Specification Releases",
+      "level": "L2",
+      "type": "rss_atom",
+      "url": "https://github.com/modelcontextprotocol/specification/releases.atom",
+      "allowed_domains": ["github.com"],
+      "topics": ["mcp", "tool_protocol"],
+      "max_items": 8,
+      "enabled": true
+    },
+    {
+      "source_id": "huggingface_blog",
+      "name": "Hugging Face Blog",
+      "level": "L2",
+      "type": "rss_atom",
+      "url": "https://huggingface.co/blog/feed.xml",
+      "allowed_domains": ["huggingface.co"],
+      "topics": ["models", "agents", "developer_tools"],
+      "max_items": 12,
+      "enabled": true
+    },
+    {
+      "source_id": "arxiv_agent_papers",
+      "name": "arXiv Agent Papers",
+      "level": "L3",
+      "type": "rss_atom",
+      "url": "https://export.arxiv.org/api/query?search_query=all:%22AI%20agent%22%20OR%20all:agentic&start=0&max_results=12&sortBy=submittedDate&sortOrder=descending",
+      "allowed_domains": ["export.arxiv.org", "arxiv.org"],
+      "topics": ["agent_research", "evaluation", "memory", "context"],
+      "max_items": 12,
+      "enabled": true
+    },
+    {
+      "source_id": "openai_news",
+      "name": "OpenAI News",
+      "level": "L2",
+      "type": "rss_atom",
+      "url": "https://openai.com/news/rss.xml",
+      "allowed_domains": ["openai.com"],
+      "topics": ["models", "agents", "developer_tools", "codex"],
+      "max_items": 12,
+      "enabled": true
+    },
+    {
+      "source_id": "techcrunch_ai",
+      "name": "TechCrunch AI",
+      "level": "L5",
+      "type": "rss_atom",
+      "url": "https://techcrunch.com/category/artificial-intelligence/feed/",
+      "allowed_domains": ["techcrunch.com"],
+      "topics": ["ai_industry", "agents", "startup", "developer_tools"],
+      "max_items": 18,
+      "enabled": true
+    },
+    {
+      "source_id": "theverge_ai",
+      "name": "The Verge AI",
+      "level": "L5",
+      "type": "rss_atom",
+      "url": "https://www.theverge.com/rss/ai-artificial-intelligence/index.xml",
+      "allowed_domains": ["theverge.com", "www.theverge.com"],
+      "topics": ["ai_industry", "models", "agents", "products"],
+      "max_items": 16,
+      "enabled": true
+    },
+    {
+      "source_id": "google_news_agent_harness",
+      "name": "Google News Search - Agent Harness",
+      "level": "L5",
+      "type": "rss_atom",
+      "url": "https://news.google.com/rss/search?q=%22Agent%20Harness%22%20OR%20%22agent%20runtime%22%20OR%20%22tool%20policy%22%20OR%20%22AI%20agent%20platform%22%20when:180d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans",
+      "allowed_domains": ["news.google.com"],
+      "topics": ["agent_harness", "agent_runtime", "tool_policy", "web_news"],
+      "max_items": 20,
+      "enabled": true
+    },
+    {
+      "source_id": "google_news_claude_code_codex",
+      "name": "Google News Search - Claude Code / Codex",
+      "level": "L5",
+      "type": "rss_atom",
+      "url": "https://news.google.com/rss/search?q=%22Claude%20Code%22%20OR%20%22OpenAI%20Codex%22%20OR%20%22Codex%20CLI%22%20when:180d&hl=zh-CN&gl=CN&ceid=CN:zh-Hans",
+      "allowed_domains": ["news.google.com"],
+      "topics": ["claude_code", "codex", "developer_tools", "web_news"],
+      "max_items": 20,
+      "enabled": true
+    }
+  ],
+  "policy_sources": [
+    {
+      "source_id": "cac_policy_regulations",
+      "name": "国家互联网信息办公室政策法规",
+      "level": "L1",
+      "type": "official_html_list",
+      "list_url": "https://www.cac.gov.cn/wxzw/zcfg/A093703index_1.htm",
+      "allowed_domains": ["cac.gov.cn", "www.cac.gov.cn"],
+      "article_url_regex": "/20[0-9]{2}-[0-9]{2}/[0-9]{2}/c_[0-9]+\\.htm$",
+      "keywords": ["人工智能", "智能体", "算法", "生成式", "数据安全", "网络数据"],
+      "exclude_title_keywords": ["专家解读", "一图读懂", "答记者问", "图解", "以“小快灵”"],
+      "issuer": "国家互联网信息办公室",
+      "region_scope": ["全国"],
+      "max_items": 12,
+      "enabled": true
+    },
+    {
+      "source_id": "cac_ai_agent_policy_pages",
+      "name": "国家网信办人工智能与智能体政策",
+      "level": "L1",
+      "type": "official_pages",
+      "allowed_domains": ["cac.gov.cn", "www.cac.gov.cn"],
+      "issuer": "国家互联网信息办公室",
+      "region_scope": ["全国"],
+      "pages": [
+        {
+          "url": "https://www.cac.gov.cn/2026-05/08/c_<redacted-phone>23320.htm",
+          "title": "智能体规范应用与创新发展实施意见",
+          "published_at": "2026-05-08",
+          "policy_type": ["智能体", "人工智能", "安全治理"]
+        },
+        {
+          "url": "https://www.cac.gov.cn/2026-04/10/c_<redacted-phone>78289.htm",
+          "title": "人工智能拟人化互动服务管理暂行办法",
+          "published_at": "2026-04-10",
+          "policy_type": ["人工智能", "拟人化互动", "服务治理"]
+        }
+      ],
+      "enabled": true
+    },
+    {
+      "source_id": "miit_ai_ethics_policy",
+      "name": "工业和信息化部人工智能科技伦理政策",
+      "level": "L1",
+      "type": "official_pages",
+      "allowed_domains": ["miit.gov.cn", "www.miit.gov.cn"],
+      "issuer": "工业和信息化部",
+      "region_scope": ["全国"],
+      "pages": [
+        {
+          "url": "https://www.miit.gov.cn/jgsj/kjs/wjfb/art/2026/art_2995f16b28504ddcbb604e918eb15759.html",
+          "title": "工业和信息化部等十部门关于印发《人工智能科技伦理审查与服务办法（试行）》的通知",
+          "published_at": "2026-04-02",
+          "policy_type": ["人工智能", "科技伦理", "合规治理"]
+        }
+      ],
+      "enabled": true
+    }
+  ],
+  "local_fallback_sources": [
+    {
+      "source_id": "local_policy_archive",
+      "level": "TEST",
+      "type": "local_markdown",
+      "path": "data/policies/raw",
+      "description": "Only used by deterministic tests or explicit offline mode."
+    }
+  ],
+  "source_levels": {
+    "L1": "official regulator or government source",
+    "L2": "official vendor, project repository, or company source",
+    "L3": "primary research index or standards community source",
+    "L4": "curated local archive with original provenance",
+    "L5": "secondary media clue, not final evidence",
+    "TEST": "synthetic acceptance fixture; never production evidence"
+  }
+}

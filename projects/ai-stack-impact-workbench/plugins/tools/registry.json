@@ -1,0 +1,74 @@
+[
+  {
+    "name": "artifact_read",
+    "callable": "policy_impact.mcp_server.registry:artifact_read"
+  },
+  {
+    "name": "company_profile_read",
+    "callable": "policy_impact.mcp_server.tools_company:company_profile_read"
+  },
+  {
+    "name": "company_context_pack_build",
+    "callable": "policy_impact.mcp_server.tools_company:company_context_pack_build"
+  },
+  {
+    "name": "company_wiki_blueprint",
+    "callable": "policy_impact.mcp_server.tools_company:company_wiki_blueprint"
+  },
+  {
+    "name": "company_wiki_search",
+    "callable": "policy_impact.mcp_server.tools_company:company_wiki_search"
+  },
+  {
+    "name": "company_update_proposal_create",
+    "callable": "policy_impact.mcp_server.tools_company:company_update_proposal_create"
+  },
+  {
+    "name": "company_update_apply",
+    "callable": "policy_impact.mcp_server.tools_company:company_update_apply"
+  },
+  {
+    "name": "policy_fetch_recent",
+    "callable": "policy_impact.mcp_server.tools_policy:policy_fetch_recent"
+  },
+  {
+    "name": "policy_ingest",
+    "callable": "policy_impact.mcp_server.tools_policy:policy_ingest"
+  },
+  {
+    "name": "policy_retrieve",
+    "callable": "policy_impact.mcp_server.tools_policy:policy_retrieve"
+  },
+  {
+    "name": "policy_clause_extract",
+    "callable": "policy_impact.mcp_server.tools_policy:policy_clause_extract"
+  },
+  {
+    "name": "report_write",
+    "callable": "policy_impact.mcp_server.tools_report:report_write"
+  },
+  {
+    "name": "memory_save",
+    "callable": "policy_impact.mcp_server.tools_report:memory_save"
+  },
+  {
+    "name": "memory_search",
+    "callable": "policy_impact.mcp_server.tools_report:memory_search"
+  },
+  {
+    "name": "news.load_items",
+    "callable": "policy_impact.mcp_server.tools_news:news_load_items"
+  },
+  {
+    "name": "news.structure_events",
+    "callable": "policy_impact.mcp_server.tools_news:news_structure_events"
+  },
+  {
+    "name": "news.analyze_company_impact",
+    "callable": "policy_impact.mcp_server.tools_news:news_analyze_company_impact"
+  },
+  {
+    "name": "report_workflow.run",
+    "callable": "policy_impact.mcp_server.registry:report_workflow_run"
+  }
+]

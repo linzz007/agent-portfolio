@@ -1,0 +1,16 @@
+{"case_id":"la_subspace_test_01","gold_doc_ids":["01_vector_spaces.txt"],"gold_keywords":["子空间判别法","加法封闭","数乘封闭","零向量"]}
+{"case_id":"la_span_solution_02","gold_doc_ids":["01_vector_spaces.txt"],"gold_keywords":["齐次线性方程组","解空间","span","线性组合"]}
+{"case_id":"la_basis_dimension_03","gold_doc_ids":["02_basis_dimension.txt"],"gold_keywords":["线性无关","张成","基","维数"]}
+{"case_id":"la_rank_basis_04","gold_doc_ids":["02_basis_dimension.txt"],"gold_keywords":["列秩","列空间","主元列","矩阵的秩"]}
+{"case_id":"la_kernel_image_05","gold_doc_ids":["03_linear_transformations.txt"],"gold_keywords":["核","像","单射","满射"]}
+{"case_id":"la_rank_nullity_06","gold_doc_ids":["03_linear_transformations.txt"],"gold_keywords":["秩-零化度定理","rank","nullity","像空间维数"]}
+{"case_id":"la_eigen_diag_07","gold_doc_ids":["04_eigen_diagonalization.txt"],"gold_keywords":["特征值","特征向量","可对角化","PDP"]}
+{"case_id":"la_symmetric_orthogonal_08","gold_doc_ids":["04_eigen_diagonalization.txt"],"gold_keywords":["实对称矩阵","正交对角化","不同特征值","正交"]}
+{"case_id":"la_gram_schmidt_09","gold_doc_ids":["05_inner_product_projection.txt"],"gold_keywords":["Gram-Schmidt","正交化","投影","独立方向"]}
+{"case_id":"la_projection_residual_10","gold_doc_ids":["05_inner_product_projection.txt","06_least_squares.txt"],"gold_keywords":["正交投影","残差","子空间","正交"]}
+{"case_id":"la_least_squares_11","gold_doc_ids":["06_least_squares.txt"],"gold_keywords":["最小二乘","正规方程","A^T A","残差"]}
+{"case_id":"la_qr_lstsq_12","gold_doc_ids":["06_least_squares.txt","08_matrix_decomposition.txt"],"gold_keywords":["QR 分解","最小二乘","数值稳定","正规方程"]}
+{"case_id":"la_svd_pca_13","gold_doc_ids":["07_svd_pca.txt"],"gold_keywords":["SVD","奇异值","PCA","主成分"]}
+{"case_id":"la_low_rank_14","gold_doc_ids":["07_svd_pca.txt"],"gold_keywords":["低秩近似","截断 SVD","Eckart-Young","rank-k"]}
+{"case_id":"la_lu_qr_cholesky_15","gold_doc_ids":["08_matrix_decomposition.txt"],"gold_keywords":["LU 分解","QR 分解","Cholesky","对称正定"]}
+{"case_id":"la_decomp_compare_16","gold_doc_ids":["08_matrix_decomposition.txt"],"gold_keywords":["矩阵分解","线性方程组","最小二乘","数值稳定"]}

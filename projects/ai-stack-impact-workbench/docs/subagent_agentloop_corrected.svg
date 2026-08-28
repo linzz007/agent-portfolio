@@ -1,0 +1,169 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1520" height="1040" viewBox="0 0 1520 1040" role="img" aria-labelledby="title desc">
+  <title id="title">Subagent as an Action inside Main AgentLoop</title>
+  <desc id="desc">Corrected component diagram showing subagent delegation as an action inside the main agent loop.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="54%" stop-color="#f6f4ff"/>
+      <stop offset="100%" stop-color="#f5fff8"/>
+    </linearGradient>
+    <filter id="shadow" x="-18%" y="-18%" width="136%" height="136%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.13"/>
+    </filter>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#059669"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#d97706"/>
+    </marker>
+    <style>
+      .title { font: 700 34px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 16px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #4b5563; }
+      .section { font: 700 19px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #111827; }
+      .box-title { font: 700 16px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #111827; }
+      .box-text { font: 400 12.5px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #374151; }
+      .small { font: 400 12px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #4b5563; }
+      .mono { font: 600 12px Consolas, "Cascadia Mono", monospace; fill: #1f2937; }
+      .tag { font: 700 12px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #fff; }
+      .line-blue { stroke: #2563eb; stroke-width: 3; fill: none; marker-end: url(#arrowBlue); }
+      .line-purple { stroke: #7c3aed; stroke-width: 3; fill: none; marker-end: url(#arrowPurple); }
+      .line-green { stroke: #059669; stroke-width: 3; fill: none; marker-end: url(#arrowGreen); }
+      .line-amber { stroke: #d97706; stroke-width: 2.5; fill: none; marker-end: url(#arrowAmber); stroke-dasharray: 8 7; }
+    </style>
+  </defs>
+
+  <rect width="1520" height="1040" fill="url(#bg)"/>
+  <rect x="34" y="28" width="1452" height="984" rx="30" fill="#ffffff" opacity="0.84"/>
+
+  <text x="72" y="78" class="title">Subagent 正确位置：Main AgentLoop 内的一种 Action</text>
+  <text x="72" y="110" class="subtitle">关键修正：Subagent 不是 Runtime 前置路由结果，而是主 Agent 在循环中观察上下文后选择的 delegate action。</text>
+
+  <!-- Runtime entry -->
+  <rect x="72" y="150" width="1376" height="126" rx="22" fill="#eff6ff" stroke="#93c5fd" stroke-width="2" filter="url(#shadow)"/>
+  <text x="96" y="186" class="section">1. 先进入 Runtime 和 Main AgentLoop</text>
+  <rect x="100" y="205" width="178" height="46" rx="13" fill="#ffffff" stroke="#60a5fa" stroke-width="1.4"/>
+  <text x="124" y="234" class="box-title">User Query</text>
+  <rect x="330" y="205" width="210" height="46" rx="13" fill="#ffffff" stroke="#60a5fa" stroke-width="1.4"/>
+  <text x="354" y="234" class="box-title">AgentRuntime</text>
+  <rect x="592" y="205" width="210" height="46" rx="13" fill="#ffffff" stroke="#60a5fa" stroke-width="1.4"/>
+  <text x="616" y="234" class="box-title">general_chat Skill</text>
+  <rect x="854" y="205" width="240" height="46" rx="13" fill="#ffffff" stroke="#60a5fa" stroke-width="1.4"/>
+  <text x="878" y="234" class="box-title">Build ContextManifest</text>
+  <rect x="1146" y="205" width="254" height="46" rx="13" fill="#ffffff" stroke="#60a5fa" stroke-width="1.4"/>
+  <text x="1170" y="234" class="box-title">Enter Main AgentLoop</text>
+
+  <path d="M278 228 H318" class="line-blue"/>
+  <path d="M540 228 H580" class="line-blue"/>
+  <path d="M802 228 H842" class="line-blue"/>
+  <path d="M1094 228 H1134" class="line-blue"/>
+
+  <!-- Main loop -->
+  <rect x="72" y="324" width="908" height="372" rx="28" fill="#f5f3ff" stroke="#c4b5fd" stroke-width="2.4" filter="url(#shadow)"/>
+  <text x="100" y="363" class="section">2. Main AgentLoop 内部：先 observe，再决定 action</text>
+
+  <rect x="104" y="392" width="250" height="96" rx="15" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="128" y="419" class="box-title">Observe</text>
+  <text x="128" y="443" class="box-text">用户问题 / Wiki / Memory</text>
+  <text x="128" y="464" class="box-text">history / artifacts / traces</text>
+
+  <rect x="394" y="392" width="250" height="96" rx="15" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="418" y="419" class="box-title">Available Roster</text>
+  <text x="418" y="443" class="box-text">collector / analyst</text>
+  <text x="418" y="464" class="box-text">skeptic / verifier</text>
+
+  <rect x="684" y="392" width="250" height="96" rx="15" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="708" y="419" class="box-title">Delegation Policy</text>
+  <text x="708" y="443" class="box-text">用户显式要求</text>
+  <text x="708" y="464" class="box-text">或任务复杂 / 高风险 / 需核验</text>
+
+  <path d="M354 440 H382" class="line-purple"/>
+  <path d="M644 440 H672" class="line-purple"/>
+
+  <rect x="310" y="540" width="360" height="104" rx="18" fill="#ffffff" stroke="#7c3aed" stroke-width="2"/>
+  <text x="338" y="572" class="section">Main Agent 决策点</text>
+  <text x="338" y="602" class="box-text">模型在本轮 AgentLoop 里选择一个结构化 action：</text>
+  <text x="338" y="626" class="mono">final 或 delegate</text>
+
+  <path d="M518 488 V528" class="line-purple"/>
+
+  <!-- final path -->
+  <rect x="104" y="760" width="250" height="90" rx="18" fill="#eef6ff" stroke="#60a5fa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="128" y="792" class="section">Action = final</text>
+  <text x="128" y="820" class="box-text">简单问题、已有上下文足够</text>
+  <text x="128" y="840" class="box-text">直接生成最终回答</text>
+
+  <path d="M420 644 C290 676 228 710 228 748" class="line-blue"/>
+
+  <!-- delegate path -->
+  <rect x="458" y="760" width="350" height="90" rx="18" fill="#fff7ed" stroke="#fb923c" stroke-width="2" filter="url(#shadow)"/>
+  <text x="482" y="792" class="section">Action = delegate</text>
+  <text x="482" y="820" class="mono">{ role, task, input_artifact_refs }</text>
+  <text x="482" y="840" class="box-text">此时才进入 Runtime 的子智能体治理链路</text>
+
+  <path d="M566 644 C628 684 632 720 632 748" class="line-purple"/>
+
+  <!-- Manifest side info -->
+  <rect x="1028" y="324" width="420" height="176" rx="24" fill="#f0fdfa" stroke="#5eead4" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1054" y="361" class="section">3. Main AgentLoop 里看到的 roster 从哪里来</text>
+  <rect x="1056" y="386" width="170" height="78" rx="14" fill="#ffffff" stroke="#2dd4bf" stroke-width="1.4"/>
+  <text x="1078" y="412" class="box-title">SkillManifest</text>
+  <text x="1078" y="436" class="box-text">allowed_subagents</text>
+  <text x="1078" y="456" class="box-text">allowed_tools</text>
+  <rect x="1248" y="386" width="170" height="78" rx="14" fill="#ffffff" stroke="#2dd4bf" stroke-width="1.4"/>
+  <text x="1270" y="412" class="box-title">SubagentManifest</text>
+  <text x="1270" y="436" class="box-text">description / use_when</text>
+  <text x="1270" y="456" class="box-text">tools / schema / budget</text>
+  <path d="M1238 500 C1140 548 994 486 934 452" class="line-green"/>
+
+  <!-- Runtime delegate governance -->
+  <rect x="870" y="744" width="578" height="206" rx="24" fill="#fff7ed" stroke="#fdba74" stroke-width="2" filter="url(#shadow)"/>
+  <text x="896" y="781" class="section">4. Runtime 执行 delegate：确定性治理</text>
+  <rect x="898" y="808" width="160" height="74" rx="14" fill="#ffffff" stroke="#fb923c" stroke-width="1.4"/>
+  <text x="920" y="834" class="box-title">Role Gate</text>
+  <text x="920" y="858" class="box-text">role 存在且被允许</text>
+  <rect x="1082" y="808" width="160" height="74" rx="14" fill="#ffffff" stroke="#fb923c" stroke-width="1.4"/>
+  <text x="1104" y="834" class="box-title">Tool Policy</text>
+  <text x="1104" y="858" class="box-text">role tools ∩ skill tools</text>
+  <rect x="1266" y="808" width="154" height="74" rx="14" fill="#ffffff" stroke="#fb923c" stroke-width="1.4"/>
+  <text x="1288" y="834" class="box-title">Budget</text>
+  <text x="1288" y="858" class="box-text">steps / calls / timeout</text>
+  <rect x="990" y="898" width="180" height="34" rx="17" fill="#ea580c"/>
+  <text x="1024" y="920" class="tag">PermissionEngine</text>
+  <rect x="1200" y="898" width="180" height="34" rx="17" fill="#ea580c"/>
+  <text x="1238" y="920" class="tag">Artifact Scope</text>
+
+  <path d="M808 805 H858" class="line-purple"/>
+
+  <!-- Subagent execution and return -->
+  <rect x="72" y="890" width="736" height="104" rx="24" fill="#ecfdf5" stroke="#86efac" stroke-width="2" filter="url(#shadow)"/>
+  <text x="100" y="925" class="section">5. 通过后才启动 SubagentRunner，结果回到 Main AgentLoop</text>
+  <rect x="100" y="946" width="148" height="30" rx="15" fill="#059669"/>
+  <text x="126" y="966" class="tag">ContextPack</text>
+  <rect x="274" y="946" width="166" height="30" rx="15" fill="#059669"/>
+  <text x="302" y="966" class="tag">TaskBrief</text>
+  <rect x="466" y="946" width="170" height="30" rx="15" fill="#059669"/>
+  <text x="492" y="966" class="tag">SubagentRunner</text>
+  <rect x="662" y="946" width="116" height="30" rx="15" fill="#059669"/>
+  <text x="685" y="966" class="tag">Observation</text>
+
+  <path d="M978 950 C900 1005 720 1010 720 986" class="line-green"/>
+  <path d="M720 890 C740 850 810 735 682 644" class="line-green"/>
+
+  <!-- Trace -->
+  <rect x="1028" y="540" width="420" height="140" rx="24" fill="#fffbeb" stroke="#fbbf24" stroke-width="2" filter="url(#shadow)"/>
+  <text x="1054" y="577" class="section">Trace 记录的是整个循环</text>
+  <text x="1054" y="608" class="small">model_call(delegate) → subagent_plan → subagent_context</text>
+  <text x="1054" y="633" class="small">→ child model/tool calls → subagent_delegate</text>
+  <text x="1054" y="658" class="small">→ model_call(final) → final_answer → run_stopped</text>
+  <path d="M1238 680 C1238 718 1240 762 1242 796" class="line-amber"/>
+
+  <!-- footer -->
+  <rect x="72" y="1010" width="1376" height="0" fill="none"/>
+  <text x="72" y="1010" class="small">最准口径：Subagent 不是前置路由，也不是单独按钮，而是 Main AgentLoop 内部的一种 delegate action。</text>
+</svg>

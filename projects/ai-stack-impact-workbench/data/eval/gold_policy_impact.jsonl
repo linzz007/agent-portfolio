@@ -1,0 +1,3 @@
+{"case_id":"gold-001","expected_keywords":["digitalization","compliance","evidence"],"report_text":"The policy impact report links digitalization support to compliance evidence for enterprise operations.","forbidden_keywords":["unsupported","guaranteed"]}
+{"case_id":"gold-002","expected_keywords":["compliance","evidence"],"report_text":"The assessment cites evidence and identifies compliance actions without absolute claims.","forbidden_keywords":["unsupported","guaranteed"]}
+{"case_id":"gold-003","expected_keywords":["digitalization","evidence"],"report_text":"Digitalization incentives are described with evidence from policy clauses and company context.","forbidden_keywords":["unsupported","guaranteed"]}

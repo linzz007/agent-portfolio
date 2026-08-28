@@ -1,0 +1,6 @@
+{"case_id":"fixture_rank_01","gold_doc_ids":["matrix_fixture.txt"],"gold_keywords":["rank","row echelon","non-zero rows"]}
+{"case_id":"fixture_rank_02","gold_doc_ids":["matrix_fixture.txt"],"gold_keywords":["Elementary row transformations","do not change","rank"]}
+{"case_id":"fixture_linear_01","gold_doc_ids":["matrix_fixture.txt"],"gold_keywords":["linearly dependent","column rank","number of columns"]}
+{"case_id":"fixture_fullrank_01","gold_doc_ids":["matrix_fixture.txt"],"gold_keywords":["full-rank","invertible","determinant"]}
+{"case_id":"fixture_eigen_01","gold_doc_ids":["matrix_fixture.txt"],"gold_keywords":["eigenvalue","eigenvector","Ax = lambda x"]}
+{"case_id":"fixture_norm_01","gold_doc_ids":["matrix_fixture.txt"],"gold_keywords":["Frobenius norm","sum of squares","entries"]}

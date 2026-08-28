@@ -1,0 +1,43 @@
+{
+  "schema_version": "eval_report.v1",
+  "runner": "policy_impact.keyword_eval",
+  "runner_version": "0.1.0",
+  "generated_at": "2026-07-01T17:02:39.900834+00:00",
+  "suite_id": "gold_policy_impact",
+  "suite_version": "unversioned",
+  "suite_path": "D:\\AAAcode\\code-code\\agent+\\harness\\policy_impact\\data\\eval\\gold_policy_impact.jsonl",
+  "suite_type": "keyword_fixture",
+  "threshold": 100,
+  "passed": true,
+  "case_count": 3,
+  "passed_count": 3,
+  "failed_count": 0,
+  "forbidden_case_rate": 0.0,
+  "unsupported_claim_rate": 0.0,
+  "metric_notes": {
+    "forbidden_case_rate": "Cases with at least one forbidden keyword hit divided by case_count.",
+    "unsupported_claim_rate": "Compatibility alias for forbidden_case_rate.",
+    "suite_type": "Deterministic keyword fixture using hand-written report_text; not end-to-end agent performance."
+  },
+  "score": 100,
+  "results": [
+    {
+      "case_id": "gold-001",
+      "passed": true,
+      "missing_keywords": [],
+      "forbidden_keywords": []
+    },
+    {
+      "case_id": "gold-002",
+      "passed": true,
+      "missing_keywords": [],
+      "forbidden_keywords": []
+    },
+    {
+      "case_id": "gold-003",
+      "passed": true,
+      "missing_keywords": [],
+      "forbidden_keywords": []
+    }
+  ]
+}

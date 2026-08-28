@@ -1,0 +1,51 @@
+# Matrix Theory Fixture
+
+## Matrix Rank
+
+The rank of a matrix is the maximum number of linearly independent row vectors or column vectors in the matrix.
+It is usually written as rank(A). Row rank is equal to column rank.
+Elementary row transformations do not change the rank of a matrix.
+A common way to compute rank is to transform the matrix into row echelon form and count the number of non-zero rows.
+
+矩阵的秩是矩阵行向量组或列向量组中最大线性无关组所含向量的个数，通常记为 rank(A)。
+行秩等于列秩。初等行变换不会改变矩阵的秩。
+计算矩阵秩的常用方法是把矩阵化为阶梯形矩阵，然后统计非零行的个数。
+
+## Linear Dependence
+
+A vector group is linearly dependent if one vector can be represented as a linear combination of the others.
+If the columns of a matrix are linearly independent, then the column rank equals the number of columns.
+If rank(A) is smaller than the number of columns, the column vectors are linearly dependent.
+
+如果一个向量组中存在非全零系数，使这些向量的线性组合等于零向量，则该向量组线性相关。
+如果矩阵的列向量组线性无关，则列秩等于列数。
+如果 rank(A) 小于列数，则列向量组线性相关。
+
+## Full Rank and Invertibility
+
+For a square n by n matrix A, if rank(A) = n, then A is a full-rank matrix.
+A square matrix is invertible if and only if it has full rank.
+Equivalently, the determinant of A is non-zero and the homogeneous system Ax = 0 has only the zero solution.
+
+对于 n 阶方阵 A，如果 rank(A)=n，则 A 是满秩矩阵。
+方阵可逆当且仅当它满秩；等价地，它的行列式不为零，齐次线性方程组 Ax=0 只有零解。
+
+## Eigenvalues and Eigenvectors
+
+For a square matrix A, if there is a non-zero vector x and a scalar lambda such that Ax = lambda x,
+then lambda is an eigenvalue of A and x is an eigenvector corresponding to lambda.
+Eigenvalues describe scaling effects of a linear transformation along special directions.
+
+对于方阵 A，如果存在非零向量 x 和数 lambda，使得 Ax=lambda x，
+则 lambda 称为 A 的特征值，x 称为对应的特征向量。
+特征值描述线性变换在某些特殊方向上的伸缩效应。
+
+## Matrix Norms
+
+A matrix norm measures the size of a matrix.
+Common matrix norms include the 1-norm, infinity norm, Frobenius norm, and spectral norm.
+The Frobenius norm is the square root of the sum of squares of all entries.
+
+矩阵范数用于度量矩阵的大小。常见矩阵范数包括 1-范数、无穷范数、Frobenius 范数和谱范数。
+Frobenius 范数等于矩阵所有元素平方和再开方。
+

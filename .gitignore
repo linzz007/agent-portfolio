@@ -1,0 +1,37 @@
+# Local config and credentials
+.env
+.env.*
+!.env.example
+
+# Runtime state
+*.db
+*.sqlite
+*.sqlite3
+*.log
+data/memory/
+data/runs/
+data/checkpoints/
+logs/
+tmp/
+
+# Python
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+dist/
+build/
+
+# Node
+node_modules/
+.next/
+.cache/
+
+# Private/binary artifacts
+*.docx
+*.pdf
+*.zip
+*.rar
+*.7z

@@ -1,0 +1,199 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1440" height="980" viewBox="0 0 1440 980" role="img" aria-labelledby="title desc">
+  <title id="title">Agent Workbench Subagent Harness Design</title>
+  <desc id="desc">A colorful architecture diagram showing Main Agent, Runtime Governance, Subagent Execution, and Trace Evidence layers.</desc>
+  <defs>
+    <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fbff"/>
+      <stop offset="55%" stop-color="#f4f7ff"/>
+      <stop offset="100%" stop-color="#f8fff9"/>
+    </linearGradient>
+    <linearGradient id="mainGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#eaf2ff"/>
+      <stop offset="100%" stop-color="#d9e8ff"/>
+    </linearGradient>
+    <linearGradient id="runtimeGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f2eaff"/>
+      <stop offset="100%" stop-color="#e8d9ff"/>
+    </linearGradient>
+    <linearGradient id="subGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#e8fff3"/>
+      <stop offset="100%" stop-color="#d4f7e5"/>
+    </linearGradient>
+    <linearGradient id="traceGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#fff7df"/>
+      <stop offset="100%" stop-color="#ffe9a8"/>
+    </linearGradient>
+    <filter id="shadow" x="-15%" y="-15%" width="130%" height="130%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#1f2937" flood-opacity="0.14"/>
+    </filter>
+    <marker id="arrowBlue" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#059669"/>
+    </marker>
+    <marker id="arrowAmber" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto" markerUnits="strokeWidth">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#d97706"/>
+    </marker>
+    <style>
+      .title { font: 700 34px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 16px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #4b5563; }
+      .layer-title { font: 700 20px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #111827; }
+      .box-title { font: 700 17px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #111827; }
+      .box-text { font: 400 13px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #374151; }
+      .small { font: 400 12px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #4b5563; }
+      .tag { font: 700 12px "Microsoft YaHei", "PingFang SC", "Noto Sans CJK SC", Arial, sans-serif; fill: #ffffff; }
+      .mono { font: 600 12px Consolas, "Cascadia Mono", monospace; fill: #1f2937; }
+      .line-blue { stroke: #2563eb; stroke-width: 3; fill: none; marker-end: url(#arrowBlue); }
+      .line-purple { stroke: #7c3aed; stroke-width: 3; fill: none; marker-end: url(#arrowPurple); }
+      .line-green { stroke: #059669; stroke-width: 3; fill: none; marker-end: url(#arrowGreen); }
+      .line-amber { stroke: #d97706; stroke-width: 2.5; fill: none; marker-end: url(#arrowAmber); stroke-dasharray: 8 7; }
+      .thin { stroke-width: 2.2; }
+    </style>
+  </defs>
+
+  <rect width="1440" height="980" fill="url(#bg)"/>
+  <rect x="34" y="28" width="1372" height="924" rx="30" fill="#ffffff" opacity="0.72"/>
+
+  <text x="72" y="80" class="title">Day 3：Subagent Harness 体系设计图</text>
+  <text x="72" y="111" class="subtitle">核心心智：Subagent 不是按钮，也不是固定 workflow stage，而是 Main AgentLoop 中的受控 delegation 能力。</text>
+
+  <rect x="72" y="146" width="1296" height="154" rx="22" fill="url(#mainGrad)" stroke="#93c5fd" stroke-width="2" filter="url(#shadow)"/>
+  <text x="96" y="181" class="layer-title">1. Main Agent 决策层</text>
+  <rect x="96" y="202" width="185" height="70" rx="14" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="118" y="229" class="box-title">User Query</text>
+  <text x="118" y="252" class="box-text">普通对话输入</text>
+
+  <rect x="328" y="202" width="220" height="70" rx="14" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="350" y="229" class="box-title">AgentRuntime</text>
+  <text x="350" y="252" class="box-text">统一入口 / 选 skill / 建 run</text>
+
+  <rect x="596" y="202" width="220" height="70" rx="14" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="618" y="229" class="box-title">general_chat Skill</text>
+  <text x="618" y="252" class="box-text">进入 Main AgentLoop</text>
+
+  <rect x="864" y="202" width="220" height="70" rx="14" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="886" y="229" class="box-title">ContextManifest</text>
+  <text x="886" y="252" class="box-text">注入 agent_roster / artifact</text>
+
+  <rect x="1132" y="202" width="210" height="70" rx="14" fill="#ffffff" stroke="#60a5fa" stroke-width="1.5"/>
+  <text x="1154" y="229" class="box-title">Main AgentLoop</text>
+  <text x="1154" y="252" class="box-text">决定 final 或 delegate</text>
+
+  <path d="M281 237 H318" class="line-blue"/>
+  <path d="M548 237 H586" class="line-blue"/>
+  <path d="M816 237 H854" class="line-blue"/>
+  <path d="M1084 237 H1122" class="line-blue"/>
+
+  <rect x="778" y="154" width="132" height="28" rx="14" fill="#2563eb"/>
+  <text x="797" y="173" class="tag">可见上下文</text>
+  <rect x="927" y="154" width="150" height="28" rx="14" fill="#2563eb"/>
+  <text x="948" y="173" class="tag">可委派角色清单</text>
+
+  <rect x="72" y="336" width="1296" height="196" rx="22" fill="url(#runtimeGrad)" stroke="#c4b5fd" stroke-width="2" filter="url(#shadow)"/>
+  <text x="96" y="371" class="layer-title">2. Runtime 治理层：不是 prompt 祈祷，而是确定性边界</text>
+
+  <rect x="96" y="396" width="238" height="96" rx="14" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="118" y="423" class="box-title">delegate action</text>
+  <text x="118" y="448" class="mono">{ role, task, artifact_refs }</text>
+  <text x="118" y="471" class="box-text">主 Agent 显式请求委派</text>
+
+  <rect x="382" y="396" width="238" height="96" rx="14" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="404" y="423" class="box-title">SubagentManifest</text>
+  <text x="404" y="448" class="box-text">description / use_when</text>
+  <text x="404" y="471" class="box-text">tools / output_schema / budget</text>
+
+  <rect x="668" y="396" width="238" height="96" rx="14" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="690" y="423" class="box-title">PermissionEngine</text>
+  <text x="690" y="448" class="box-text">role tools ∩ skill tools</text>
+  <text x="690" y="471" class="box-text">deny → ask → allow</text>
+
+  <rect x="954" y="396" width="238" height="96" rx="14" fill="#ffffff" stroke="#a78bfa" stroke-width="1.5"/>
+  <text x="976" y="423" class="box-title">ContextPackBuilder</text>
+  <text x="976" y="448" class="box-text">main_chat_context artifact</text>
+  <text x="976" y="471" class="box-text">隔离父对话完整上下文</text>
+
+  <rect x="1220" y="396" width="122" height="96" rx="14" fill="#fff7ed" stroke="#fb923c" stroke-width="1.5"/>
+  <text x="1239" y="423" class="box-title">Gate</text>
+  <text x="1240" y="448" class="box-text">role</text>
+  <text x="1240" y="469" class="box-text">budget</text>
+  <text x="1240" y="490" class="box-text">scope</text>
+
+  <path d="M1237 272 C1237 314 215 324 215 386" class="line-purple"/>
+  <path d="M334 444 H372" class="line-purple"/>
+  <path d="M620 444 H658" class="line-purple"/>
+  <path d="M906 444 H944" class="line-purple"/>
+  <path d="M1192 444 H1210" class="line-purple thin"/>
+
+  <rect x="72" y="568" width="1296" height="190" rx="22" fill="url(#subGrad)" stroke="#86efac" stroke-width="2" filter="url(#shadow)"/>
+  <text x="96" y="603" class="layer-title">3. Subagent 执行层：隔离执行一个小任务，结果回传给主 Agent</text>
+
+  <rect x="96" y="626" width="196" height="88" rx="14" fill="#ffffff" stroke="#34d399" stroke-width="1.5"/>
+  <text x="118" y="653" class="box-title">SubagentRunner</text>
+  <text x="118" y="678" class="box-text">独立 loop / 独立 task brief</text>
+  <text x="118" y="699" class="box-text">不直接发布最终答案</text>
+
+  <rect x="330" y="626" width="196" height="88" rx="14" fill="#ffffff" stroke="#34d399" stroke-width="1.5"/>
+  <text x="352" y="653" class="box-title">forced artifact_read</text>
+  <text x="352" y="678" class="box-text">第一步读取任务上下文</text>
+  <text x="352" y="699" class="box-text">避免模型猜输入</text>
+
+  <rect x="564" y="626" width="340" height="88" rx="14" fill="#ffffff" stroke="#34d399" stroke-width="1.5"/>
+  <text x="586" y="653" class="box-title">受控角色 roster</text>
+  <text x="586" y="680" class="box-text">collector：收集证据　analyst：影响分析</text>
+  <text x="586" y="702" class="box-text">skeptic：质疑反例　verifier：证据核验</text>
+
+  <rect x="942" y="626" width="196" height="88" rx="14" fill="#ffffff" stroke="#34d399" stroke-width="1.5"/>
+  <text x="964" y="653" class="box-title">Structured Output</text>
+  <text x="964" y="678" class="box-text">claims / counterexamples</text>
+  <text x="964" y="699" class="box-text">verdicts / evidence</text>
+
+  <rect x="1176" y="626" width="166" height="88" rx="14" fill="#ffffff" stroke="#34d399" stroke-width="1.5"/>
+  <text x="1198" y="653" class="box-title">Observation</text>
+  <text x="1198" y="678" class="box-text">回到 Main Agent</text>
+  <text x="1198" y="699" class="box-text">最终回答权仍在主 Agent</text>
+
+  <path d="M1281 492 C1281 540 194 548 194 616" class="line-green"/>
+  <path d="M292 670 H320" class="line-green"/>
+  <path d="M526 670 H554" class="line-green"/>
+  <path d="M904 670 H932" class="line-green"/>
+  <path d="M1138 670 H1166" class="line-green"/>
+  <path d="M1259 626 C1268 560 1312 318 1240 283" class="line-green"/>
+
+  <rect x="72" y="794" width="1296" height="116" rx="22" fill="url(#traceGrad)" stroke="#fbbf24" stroke-width="2" filter="url(#shadow)"/>
+  <text x="96" y="829" class="layer-title">4. Trace 证据层：每一步都能复盘</text>
+
+  <rect x="96" y="850" width="164" height="34" rx="17" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="116" y="872" class="small">model_call(delegate)</text>
+  <rect x="286" y="850" width="138" height="34" rx="17" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="309" y="872" class="small">subagent_plan</text>
+  <rect x="450" y="850" width="156" height="34" rx="17" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="471" y="872" class="small">subagent_context</text>
+  <rect x="632" y="850" width="174" height="34" rx="17" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="652" y="872" class="small">child model/tool calls</text>
+  <rect x="832" y="850" width="160" height="34" rx="17" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="854" y="872" class="small">subagent_delegate</text>
+  <rect x="1018" y="850" width="186" height="34" rx="17" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="1038" y="872" class="small">final_answer / stopped</text>
+  <rect x="1230" y="850" width="112" height="34" rx="17" fill="#ffffff" stroke="#f59e0b" stroke-width="1.2"/>
+  <text x="1254" y="872" class="small">run_id</text>
+
+  <path d="M215 492 C170 584 164 736 178 840" class="line-amber"/>
+  <path d="M501 492 C430 588 380 736 355 840" class="line-amber"/>
+  <path d="M1073 492 C1010 588 900 735 912 840" class="line-amber"/>
+  <path d="M1259 714 C1210 762 1150 812 1112 840" class="line-amber"/>
+
+  <rect x="98" y="919" width="18" height="18" rx="4" fill="#2563eb"/>
+  <text x="124" y="934" class="small">主 Agent 决策</text>
+  <rect x="258" y="919" width="18" height="18" rx="4" fill="#7c3aed"/>
+  <text x="284" y="934" class="small">Runtime 治理</text>
+  <rect x="418" y="919" width="18" height="18" rx="4" fill="#059669"/>
+  <text x="444" y="934" class="small">子智能体执行</text>
+  <rect x="594" y="919" width="18" height="18" rx="4" fill="#d97706"/>
+  <text x="620" y="934" class="small">Trace / 证据</text>
+
+  <text x="962" y="934" class="small">面试表达：主 Agent 从 AgentManifest 暴露的 roster 中选择受控子智能体，Runtime 管上下文、权限、预算、Trace。</text>
+</svg>

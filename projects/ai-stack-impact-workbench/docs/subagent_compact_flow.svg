@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1360" height="900" viewBox="0 0 1360 900" role="img" aria-labelledby="title desc">
+  <title id="title">Subagent Compact Flow</title>
+  <desc id="desc">A compact Chinese SVG diagram explaining the subagent delegation flow in Agent Workbench.</desc>
+  <defs>
+    <linearGradient id="pageBg" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#f8fafc"/>
+      <stop offset="52%" stop-color="#f4f7ff"/>
+      <stop offset="100%" stop-color="#f7fff7"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feDropShadow dx="0" dy="8" stdDeviation="8" flood-color="#0f172a" flood-opacity="0.12"/>
+    </filter>
+    <marker id="arrowBlue" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto">
+      <path d="M2,2 L11,6.5 L2,11 Z" fill="#2563eb"/>
+    </marker>
+    <marker id="arrowPurple" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto">
+      <path d="M2,2 L11,6.5 L2,11 Z" fill="#7c3aed"/>
+    </marker>
+    <marker id="arrowGreen" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto">
+      <path d="M2,2 L11,6.5 L2,11 Z" fill="#059669"/>
+    </marker>
+    <marker id="arrowOrange" markerWidth="13" markerHeight="13" refX="11" refY="6.5" orient="auto">
+      <path d="M2,2 L11,6.5 L2,11 Z" fill="#ea580c"/>
+    </marker>
+    <style>
+      .title { font: 700 34px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #111827; }
+      .subtitle { font: 400 16px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #4b5563; }
+      .section { font: 700 18px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #111827; }
+      .box-title { font: 700 17px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #111827; }
+      .box-text { font: 400 13px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #374151; }
+      .small { font: 400 12px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #4b5563; }
+      .note { font: 700 13px "Microsoft YaHei", "PingFang SC", Arial, sans-serif; fill: #ffffff; }
+      .mono { font: 600 12px Consolas, "Cascadia Mono", monospace; fill: #1f2937; }
+      .line-blue { stroke: #2563eb; stroke-width: 3; fill: none; marker-end: url(#arrowBlue); }
+      .line-purple { stroke: #7c3aed; stroke-width: 3; fill: none; marker-end: url(#arrowPurple); }
+      .line-green { stroke: #059669; stroke-width: 3; fill: none; marker-end: url(#arrowGreen); }
+      .line-orange { stroke: #ea580c; stroke-width: 3; fill: none; marker-end: url(#arrowOrange); }
+      .dash { stroke-dasharray: 8 7; }
+    </style>
+  </defs>
+
+  <rect width="1360" height="900" fill="url(#pageBg)"/>
+  <rect x="36" y="30" width="1288" height="840" rx="28" fill="#ffffff" opacity="0.84"/>
+
+  <text x="70" y="82" class="title">Subagent Harness：一张图讲清楚</text>
+  <text x="70" y="112" class="subtitle">核心：主 Agent 负责判断与整合，Runtime 负责校验与隔离，Subagent 只执行一个受控小任务。</text>
+
+  <rect x="70" y="145" width="1220" height="94" rx="18" fill="#eef6ff" stroke="#93c5fd" stroke-width="2" filter="url(#shadow)"/>
+  <text x="95" y="180" class="section">0. 先定义可用角色，不允许模型临时造角色</text>
+  <rect x="96" y="198" width="230" height="26" rx="13" fill="#2563eb"/>
+  <text x="122" y="216" class="note">collector：收集证据</text>
+  <rect x="348" y="198" width="230" height="26" rx="13" fill="#0f766e"/>
+  <text x="374" y="216" class="note">analyst：影响分析</text>
+  <rect x="600" y="198" width="230" height="26" rx="13" fill="#7c3aed"/>
+  <text x="626" y="216" class="note">skeptic：质疑反例</text>
+  <rect x="852" y="198" width="230" height="26" rx="13" fill="#ea580c"/>
+  <text x="878" y="216" class="note">verifier：证据核验</text>
+  <text x="1102" y="216" class="small">SubagentManifest</text>
+
+  <rect x="70" y="278" width="310" height="174" rx="20" fill="#eff6ff" stroke="#60a5fa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="96" y="312" class="section">1. 两种触发信号</text>
+  <rect x="98" y="334" width="254" height="42" rx="12" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="116" y="359" class="box-title">用户主动要求</text>
+  <text x="116" y="389" class="box-text">“用分析和质疑两个角度看”</text>
+  <rect x="98" y="398" width="254" height="42" rx="12" fill="#ffffff" stroke="#93c5fd" stroke-width="1.5"/>
+  <text x="116" y="423" class="box-title">主 Agent 自主判断</text>
+  <text x="116" y="443" class="box-text">高风险 / 复杂 / 需证据 / 需核验</text>
+
+  <rect x="486" y="278" width="358" height="174" rx="20" fill="#f5f3ff" stroke="#a78bfa" stroke-width="2" filter="url(#shadow)"/>
+  <text x="512" y="312" class="section">2. 主 Agent 输出 delegate</text>
+  <rect x="514" y="334" width="302" height="88" rx="14" fill="#ffffff" stroke="#c4b5fd" stroke-width="1.5"/>
+  <text x="536" y="360" class="box-title">不是直接开线程</text>
+  <text x="536" y="384" class="box-text">先返回结构化 action，交给 Runtime 执行</text>
+  <text x="536" y="409" class="mono">{ type: delegate, role, task }</text>
+
+  <rect x="950" y="278" width="340" height="174" rx="20" fill="#fff7ed" stroke="#fb923c" stroke-width="2" filter="url(#shadow)"/>
+  <text x="976" y="312" class="section">3. Runtime 运行前校验</text>
+  <rect x="978" y="334" width="284" height="88" rx="14" fill="#ffffff" stroke="#fdba74" stroke-width="1.5"/>
+  <text x="1000" y="360" class="box-text">role 是否存在</text>
+  <text x="1000" y="382" class="box-text">是否在 allowed_subagents 中</text>
+  <text x="1000" y="404" class="box-text">工具权限 / 上下文范围 / 预算是否允许</text>
+
+  <path d="M380 365 H474" class="line-blue"/>
+  <path d="M844 365 H938" class="line-purple"/>
+
+  <rect x="70" y="510" width="310" height="184" rx="20" fill="#ecfdf5" stroke="#34d399" stroke-width="2" filter="url(#shadow)"/>
+  <text x="96" y="544" class="section">4. 构建隔离上下文包</text>
+  <rect x="98" y="566" width="254" height="96" rx="14" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="116" y="592" class="box-title">main_chat_context</text>
+  <text x="116" y="616" class="box-text">当前问题 / Wiki / Memory / 历史摘要</text>
+  <text x="116" y="638" class="box-text">只给子智能体必要上下文</text>
+  <text x="116" y="660" class="box-text">不继承完整父对话</text>
+
+  <rect x="486" y="510" width="358" height="184" rx="20" fill="#ecfdf5" stroke="#34d399" stroke-width="2" filter="url(#shadow)"/>
+  <text x="512" y="544" class="section">5. SubagentRunner 执行</text>
+  <rect x="514" y="566" width="302" height="96" rx="14" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="536" y="592" class="box-title">子线程 / 子任务</text>
+  <text x="536" y="616" class="box-text">强制 artifact_read 读取任务上下文</text>
+  <text x="536" y="638" class="box-text">按 role prompt + 工具权限执行</text>
+  <text x="536" y="660" class="box-text">输出结构化结果，不直接答用户</text>
+
+  <rect x="950" y="510" width="340" height="184" rx="20" fill="#ecfdf5" stroke="#34d399" stroke-width="2" filter="url(#shadow)"/>
+  <text x="976" y="544" class="section">6. observation 回到主 Agent</text>
+  <rect x="978" y="566" width="284" height="96" rx="14" fill="#ffffff" stroke="#6ee7b7" stroke-width="1.5"/>
+  <text x="1000" y="592" class="box-title">主 Agent 整合最终回答</text>
+  <text x="1000" y="616" class="box-text">子智能体提供局部结论</text>
+  <text x="1000" y="638" class="box-text">主 Agent 负责取舍、合并、表达</text>
+  <text x="1000" y="660" class="box-text">最终 answer 返回用户</text>
+
+  <path d="M1120 452 C1120 478 225 478 225 500" class="line-orange"/>
+  <path d="M380 602 H474" class="line-green"/>
+  <path d="M844 602 H938" class="line-green"/>
+  <path d="M1120 510 C1120 474 676 470 676 452" class="line-green dash"/>
+
+  <rect x="70" y="740" width="1220" height="82" rx="20" fill="#fffbeb" stroke="#f59e0b" stroke-width="2" filter="url(#shadow)"/>
+  <text x="96" y="774" class="section">7. Trace 留痕：证明这个流程可复盘</text>
+  <text x="96" y="803" class="box-text">model_call(delegate) → subagent_plan → subagent_context → artifact_read → child final → subagent_delegate → main final → run_stopped</text>
+
+  <text x="70" y="856" class="small">面试口径：概念很简单，但工程价值在 Runtime 确定性治理：角色不漂、上下文隔离、工具不越权、预算可控、Trace 可复盘。</text>
+</svg>

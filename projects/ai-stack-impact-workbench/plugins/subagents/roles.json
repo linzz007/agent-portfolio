@@ -1,0 +1,88 @@
+[
+  {
+    "role": "collector",
+    "version": "1.0.0",
+    "prompt_template_id": "subagent.collector.system",
+    "prompt_template_version": "1.0.0",
+    "output_schema_name": "evidence_collection.v1",
+    "output_schema": "policy_impact.runtime.subagent_outputs:CollectorOutput",
+    "allowed_tools": [
+      "artifact_read",
+      "news.load_items",
+      "policy_fetch_recent",
+      "policy_retrieve"
+    ],
+    "max_steps": 8,
+    "max_model_calls": 4,
+    "timeout_seconds": 90,
+    "can_publish": false
+  },
+  {
+    "role": "analyst",
+    "version": "1.0.0",
+    "prompt_template_id": "subagent.analyst.system",
+    "prompt_template_version": "1.0.0",
+    "output_schema_name": "claim_set.v1",
+    "output_schema": "policy_impact.runtime.subagent_outputs:AnalystOutput",
+    "allowed_tools": [
+      "artifact_read",
+      "company_wiki_search",
+      "memory_search",
+      "policy_retrieve"
+    ],
+    "max_steps": 8,
+    "max_model_calls": 4,
+    "timeout_seconds": 90,
+    "can_publish": false
+  },
+  {
+    "role": "skeptic",
+    "version": "1.0.0",
+    "prompt_template_id": "subagent.skeptic.system",
+    "prompt_template_version": "1.0.0",
+    "output_schema_name": "counterexample_set.v1",
+    "output_schema": "policy_impact.runtime.subagent_outputs:SkepticOutput",
+    "allowed_tools": [
+      "artifact_read",
+      "company_wiki_search",
+      "policy_retrieve"
+    ],
+    "max_steps": 6,
+    "max_model_calls": 3,
+    "timeout_seconds": 60,
+    "can_publish": false
+  },
+  {
+    "role": "verifier",
+    "version": "1.0.0",
+    "prompt_template_id": "subagent.verifier.system",
+    "prompt_template_version": "1.0.0",
+    "output_schema_name": "claim_verdict_set.v1",
+    "output_schema": "policy_impact.runtime.subagent_outputs:VerifierOutput",
+    "allowed_tools": [
+      "artifact_read",
+      "policy_fetch_recent",
+      "policy_retrieve"
+    ],
+    "max_steps": 8,
+    "max_model_calls": 4,
+    "timeout_seconds": 90,
+    "can_publish": false
+  },
+  {
+    "role": "editor",
+    "version": "1.0.0",
+    "prompt_template_id": "subagent.editor.system",
+    "prompt_template_version": "1.0.0",
+    "output_schema_name": "published_answer.v1",
+    "output_schema": "policy_impact.runtime.subagent_outputs:EditorOutput",
+    "allowed_tools": [
+      "artifact_read",
+      "report_write"
+    ],
+    "max_steps": 6,
+    "max_model_calls": 3,
+    "timeout_seconds": 60,
+    "can_publish": true
+  }
+]

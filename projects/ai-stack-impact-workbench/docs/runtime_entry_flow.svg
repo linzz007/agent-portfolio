@@ -1,0 +1,157 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1800" height="1260" viewBox="0 0 1800 1260">
+  <defs>
+    <marker id="arrow" markerWidth="12" markerHeight="12" refX="10" refY="6" orient="auto">
+      <path d="M2,2 L10,6 L2,10 Z" fill="#2f3b52"/>
+    </marker>
+    <style>
+      .bg { fill: #f5f7fb; }
+      .title { font: 700 44px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #172033; }
+      .subtitle { font: 500 21px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #5f6b7c; }
+      .band-title { font: 700 24px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #243149; }
+      .band-note { font: 500 16px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #64748b; }
+      .box-title { font: 700 22px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #172033; }
+      .box-text { font: 500 16px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #445064; }
+      .mini { font: 600 14px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #64748b; }
+      .layer { fill: #ffffff; stroke: #d9e2ef; stroke-width: 1.5; rx: 18; }
+      .runtime { fill: #eef8f4; stroke: #8ed7bd; }
+      .route { fill: #f0f5ff; stroke: #9bbcff; }
+      .context { fill: #fff7e8; stroke: #f0c36b; }
+      .exec { fill: #f4f0ff; stroke: #b9a5f3; }
+      .govern { fill: #fff0f3; stroke: #f3a5b6; }
+      .return { fill: #edf9ff; stroke: #8fcff0; }
+      .line { stroke: #2f3b52; stroke-width: 2.2; fill: none; marker-end: url(#arrow); }
+      .dash { stroke: #8b98aa; stroke-width: 1.7; stroke-dasharray: 7 7; fill: none; marker-end: url(#arrow); }
+      .pill { fill: #172033; opacity: 0.08; }
+      .pill-text { font: 700 14px "Microsoft YaHei", "Segoe UI", sans-serif; fill: #334155; }
+    </style>
+  </defs>
+
+  <rect class="bg" width="1800" height="1260"/>
+
+  <text class="title" x="90" y="78">Agent Runtime 主入口链路图</text>
+  <text class="subtitle" x="92" y="116">User Query → AgentRuntime → Skill / Executor → Trace / Artifact</text>
+
+  <rect class="layer" x="70" y="155" width="1660" height="170"/>
+  <text class="band-title" x="100" y="198">第 1 层：输入层</text>
+  <text class="band-note" x="100" y="226">前端只提交用户问题，不直接调用新闻分析、Wiki、Memory 或 Subagent。</text>
+
+  <rect class="layer runtime" x="70" y="355" width="1660" height="205"/>
+  <text class="band-title" x="100" y="398">第 2 层：Runtime / TurnCoordinator</text>
+  <text class="band-note" x="100" y="426">统一接住一轮对话，创建 run，管理执行生命周期。</text>
+
+  <rect class="layer route" x="70" y="590" width="1660" height="190"/>
+  <text class="band-title" x="100" y="633">第 3 层：路由与上下文</text>
+  <text class="band-note" x="100" y="661">解析 slash command，选择 SkillManifest，并构建 ContextManifest。</text>
+
+  <rect class="layer exec" x="70" y="810" width="1660" height="190"/>
+  <text class="band-title" x="100" y="853">第 4 层：执行层</text>
+  <text class="band-note" x="100" y="881">ExecutorRegistry 根据 executor_id 找到具体 Skill Executor。</text>
+
+  <rect class="layer govern" x="70" y="1030" width="1660" height="150"/>
+  <text class="band-title" x="100" y="1073">第 5 层：治理、观测与返回</text>
+  <text class="band-note" x="100" y="1101">工具权限、Gate、Trace、Artifact 和最终回答统一沉淀。</text>
+
+  <!-- Input -->
+  <rect class="layer" x="165" y="240" width="270" height="62" rx="14"/>
+  <text class="box-title" x="205" y="267">User Query</text>
+  <text class="box-text" x="205" y="291">普通聊天 / slash 命令</text>
+
+  <rect class="layer" x="575" y="225" width="330" height="92" rx="14"/>
+  <text class="box-title" x="610" y="253">前端 Workbench</text>
+  <text class="box-text" x="610" y="279">提交 message / session_id</text>
+  <text class="box-text" x="610" y="302">不直接调用业务逻辑</text>
+
+  <rect class="layer runtime" x="1035" y="225" width="390" height="92" rx="14"/>
+  <text class="box-title" x="1070" y="253">AgentRuntime.run_turn</text>
+  <text class="box-text" x="1070" y="279">所有 Agent 执行的统一入口</text>
+  <text class="box-text" x="1070" y="302">接住用户输入</text>
+
+  <!-- Runtime -->
+  <rect class="layer runtime" x="165" y="455" width="360" height="82" rx="14"/>
+  <text class="box-title" x="200" y="483">TurnCoordinator.run_turn</text>
+  <text class="box-text" x="200" y="510">创建 run，协调本轮生命周期</text>
+
+  <rect class="layer runtime" x="650" y="455" width="300" height="82" rx="14"/>
+  <text class="box-title" x="685" y="483">create_agent_run</text>
+  <text class="box-text" x="685" y="510">生成 run_id / 初始状态</text>
+
+  <rect class="layer runtime" x="1080" y="455" width="355" height="82" rx="14"/>
+  <text class="box-title" x="1115" y="483">add_agent_step</text>
+  <text class="box-text" x="1115" y="510">记录 intent / skill / context</text>
+
+  <!-- Routing -->
+  <rect class="layer route" x="125" y="690" width="300" height="68" rx="14"/>
+  <text class="box-title" x="158" y="718">_parse_slash_command</text>
+  <text class="box-text" x="158" y="742">识别 /report /wiki /chat</text>
+
+  <rect class="layer route" x="495" y="690" width="315" height="68" rx="14"/>
+  <text class="box-title" x="528" y="718">SkillRegistry</text>
+  <text class="box-text" x="528" y="742">选择 SkillManifest</text>
+
+  <rect class="layer context" x="875" y="690" width="320" height="68" rx="14"/>
+  <text class="box-title" x="908" y="718">_build_context</text>
+  <text class="box-text" x="908" y="742">History / Memory / Wiki</text>
+
+  <rect class="layer context" x="1265" y="690" width="345" height="68" rx="14"/>
+  <text class="box-title" x="1298" y="718">ContextManifest</text>
+  <text class="box-text" x="1298" y="742">可见字段 / 隐藏字段 / token budget</text>
+
+  <!-- Execution -->
+  <rect class="layer exec" x="135" y="910" width="330" height="68" rx="14"/>
+  <text class="box-title" x="168" y="938">ExecutorRegistry</text>
+  <text class="box-text" x="168" y="962">根据 executor_id 找 executor</text>
+
+  <rect class="layer exec" x="555" y="900" width="320" height="88" rx="14"/>
+  <text class="box-title" x="588" y="928">_execute_skill</text>
+  <text class="box-text" x="588" y="952">统一调用 Skill Executor</text>
+  <text class="box-text" x="588" y="974">返回 answer / artifacts</text>
+
+  <rect class="layer exec" x="965" y="900" width="470" height="88" rx="14"/>
+  <text class="box-title" x="998" y="928">Skill Executors</text>
+  <text class="box-text" x="998" y="952">general_chat / external_impact_report</text>
+  <text class="box-text" x="998" y="974">company_wiki_blueprint / dynamic subagent</text>
+
+  <!-- Governance -->
+  <rect class="layer govern" x="135" y="1115" width="310" height="45" rx="14"/>
+  <text class="box-title" x="168" y="1145">ToolGateway / Permission</text>
+
+  <rect class="layer govern" x="510" y="1115" width="250" height="45" rx="14"/>
+  <text class="box-title" x="548" y="1145">Gate 检查</text>
+
+  <rect class="layer return" x="825" y="1115" width="300" height="45" rx="14"/>
+  <text class="box-title" x="860" y="1145">Trace / AgentStep</text>
+
+  <rect class="layer return" x="1190" y="1115" width="365" height="45" rx="14"/>
+  <text class="box-title" x="1225" y="1145">Answer / Artifact / Citation</text>
+
+  <!-- Arrows -->
+  <path class="line" d="M435 271 H575"/>
+  <path class="line" d="M905 271 H1035"/>
+  <path class="line" d="M1230 317 V455"/>
+  <path class="line" d="M525 496 H650"/>
+  <path class="line" d="M950 496 H1080"/>
+  <path class="line" d="M1258 537 V690"/>
+  <path class="line" d="M425 724 H495"/>
+  <path class="line" d="M810 724 H875"/>
+  <path class="line" d="M1195 724 H1265"/>
+  <path class="line" d="M1438 758 V910 H465"/>
+  <path class="line" d="M465 944 H555"/>
+  <path class="line" d="M875 944 H965"/>
+  <path class="line" d="M1200 988 V1115"/>
+  <path class="line" d="M445 1138 H510"/>
+  <path class="line" d="M760 1138 H825"/>
+  <path class="line" d="M1125 1138 H1190"/>
+
+  <!-- Side notes -->
+  <rect class="pill" x="1470" y="240" width="190" height="34" rx="17"/>
+  <text class="pill-text" x="1490" y="263">统一入口</text>
+  <rect class="pill" x="1470" y="692" width="190" height="34" rx="17"/>
+  <text class="pill-text" x="1490" y="715">能力边界</text>
+  <rect class="pill" x="1470" y="910" width="190" height="34" rx="17"/>
+  <text class="pill-text" x="1490" y="933">业务执行</text>
+  <rect class="pill" x="1470" y="1118" width="190" height="34" rx="17"/>
+  <text class="pill-text" x="1490" y="1141">可审计输出</text>
+
+  <!-- Footer -->
+  <text class="mini" x="90" y="1220">核心表达：Runtime 不等于某个业务 workflow；它是统一处理 skill 路由、上下文、权限、trace 和 artifact 的执行入口。</text>
+</svg>

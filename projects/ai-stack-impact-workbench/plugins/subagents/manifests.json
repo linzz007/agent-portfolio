@@ -1,0 +1,58 @@
+[
+  {
+    "name": "evidence-researcher",
+    "role": "collector",
+    "description": "隔离收集来源、数据源、历史产物和证据链；只做事实盘点，不输出结论。",
+    "use_when": [
+      "用户要求来源、证据链、引用、数据源或材料盘点",
+      "主回答需要先把外部材料或历史产物收集干净",
+      "上下文里有多个来源，需要把噪声从主对话隔离出去"
+    ],
+    "avoid_when": ["用户只问概念解释或已有 Wiki 明确事实"],
+    "disallowed_tools": ["memory_write", "report_write"],
+    "context_policy_id": "context.subagent.collector.v1",
+    "memory_scope": "read_only"
+  },
+  {
+    "name": "impact-analyst",
+    "role": "analyst",
+    "description": "基于可见证据做结构化影响分析、方案拆解和取舍判断。",
+    "use_when": [
+      "用户要求分析影响、设计方案、取舍、重点或怎么改",
+      "主 Agent 需要一个独立分析视角后再综合回答",
+      "报告或对话需要把事实映射到业务影响"
+    ],
+    "avoid_when": ["缺少任何可见证据且用户没有要求假设分析"],
+    "disallowed_tools": ["memory_write", "report_write"],
+    "context_policy_id": "context.subagent.analyst.v1",
+    "memory_scope": "read_only"
+  },
+  {
+    "name": "skeptic-reviewer",
+    "role": "skeptic",
+    "description": "独立质疑结论，寻找反例、风险、证据不足和可被追问的点。",
+    "use_when": [
+      "用户要求质疑、反驳、风险审查、漏洞或面试拷打",
+      "主 Agent 准备给出高影响建议前需要反方检查",
+      "报告结论可能过度推断，需要找证据缺口"
+    ],
+    "avoid_when": ["用户只要求整理已确认事实"],
+    "disallowed_tools": ["memory_write", "report_write"],
+    "context_policy_id": "context.subagent.skeptic.v1",
+    "memory_scope": "read_only"
+  },
+  {
+    "name": "claim-verifier",
+    "role": "verifier",
+    "description": "核验结论是否被当前证据支撑，通过、降级或指出缺口。",
+    "use_when": [
+      "用户要求核验、查证、验收或证明结论正确",
+      "主 Agent 输出前需要确认 claim 和 evidence_ref 是否匹配",
+      "报告中有高风险结论需要证据门控"
+    ],
+    "avoid_when": ["没有待核验 claim 或证据引用"],
+    "disallowed_tools": ["memory_write", "report_write"],
+    "context_policy_id": "context.subagent.verifier.v1",
+    "memory_scope": "read_only"
+  }
+]

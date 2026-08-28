@@ -1,0 +1,16 @@
+{"case_id":"la_subspace_test_01","mode":"learn","course_name":"linear_algebra_eval","message":"如何判断一个集合是不是线性空间的子空间？请说明子空间判别法。","history":[]}
+{"case_id":"la_span_solution_02","mode":"learn","course_name":"linear_algebra_eval","message":"齐次线性方程组 Ax=0 的解空间为什么是子空间？span 和线性组合有什么关系？","history":[]}
+{"case_id":"la_basis_dimension_03","mode":"learn","course_name":"linear_algebra_eval","message":"一组向量成为基需要满足哪两个条件？维数 dimension 怎么定义？","history":[]}
+{"case_id":"la_rank_basis_04","mode":"learn","course_name":"linear_algebra_eval","message":"矩阵列秩和列空间的基有什么关系？主元列为什么可以构成列空间的基？","history":[]}
+{"case_id":"la_kernel_image_05","mode":"learn","course_name":"linear_algebra_eval","message":"线性映射的核 kernel 和像 image 分别表示什么？如何判断单射和满射？","history":[]}
+{"case_id":"la_rank_nullity_06","mode":"learn","course_name":"linear_algebra_eval","message":"秩-零化度定理说明了什么？rank 和 nullity 分别对应什么空间的维数？","history":[]}
+{"case_id":"la_eigen_diag_07","mode":"learn","course_name":"linear_algebra_eval","message":"矩阵什么时候可以对角化？特征值和特征向量在 A=PDP^{-1} 中怎么体现？","history":[]}
+{"case_id":"la_symmetric_orthogonal_08","mode":"learn","course_name":"linear_algebra_eval","message":"实对称矩阵为什么适合正交对角化？不同特征值的特征向量有什么关系？","history":[]}
+{"case_id":"la_gram_schmidt_09","mode":"learn","course_name":"linear_algebra_eval","message":"Gram-Schmidt 正交化的目的是什么？它为什么要减去已有方向上的投影？","history":[]}
+{"case_id":"la_projection_residual_10","mode":"learn","course_name":"linear_algebra_eval","message":"正交投影中的残差 r=b-p 为什么要和子空间正交？","history":[]}
+{"case_id":"la_least_squares_11","mode":"learn","course_name":"linear_algebra_eval","message":"最小二乘为什么会得到正规方程 A^T A x = A^T b？","history":[]}
+{"case_id":"la_qr_lstsq_12","mode":"learn","course_name":"linear_algebra_eval","message":"为什么实际数值计算中常用 QR 分解求最小二乘，而不是直接解正规方程？","history":[]}
+{"case_id":"la_svd_pca_13","mode":"learn","course_name":"linear_algebra_eval","message":"SVD 中的奇异值和 PCA 降维有什么联系？","history":[]}
+{"case_id":"la_low_rank_14","mode":"learn","course_name":"linear_algebra_eval","message":"低秩近似为什么可以通过截断 SVD 完成？Eckart-Young 定理说明了什么？","history":[]}
+{"case_id":"la_lu_qr_cholesky_15","mode":"learn","course_name":"linear_algebra_eval","message":"LU、QR、Cholesky 分解分别适合什么场景？Cholesky 对矩阵有什么要求？","history":[]}
+{"case_id":"la_decomp_compare_16","mode":"learn","course_name":"linear_algebra_eval","message":"矩阵分解为什么能提升线性方程组和最小二乘问题的数值稳定性？","history":[]}
