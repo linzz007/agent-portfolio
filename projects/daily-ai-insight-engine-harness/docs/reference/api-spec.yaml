@@ -1,0 +1,53 @@
+---
+last_updated: 2026-05-28
+status: active
+owner: coding-agent
+---
+
+# API 规范
+
+## 内部 API（Python 函数接口）
+
+### 对话入口
+
+```
+handle_message(message: str, show_summary: bool = False) -> ConversationResponse
+```
+- 判断用户意图，触发日报 Skill 或返回普通回复
+- ConversationResponse 包含 intent、message、artifacts 路径
+
+### Skill 执行器
+
+```
+run_daily_news_report_skill(state: InsightEngineState | None = None) -> DailyNewsReportResult
+```
+- 启动完整 5-stage 流水线
+- 返回报告、图表、pipeline summary 路径
+
+### Graph API
+
+```
+InsightEngineGraph.run(state: InsightEngineState) -> InsightEngineState
+```
+- 从当前 stage 运行到 done 或 failed
+- 每个 stage 经过 hook 生命周期和 gate 检查
+
+### Stage Handler 签名
+
+```
+Handler(state: InsightEngineState) -> InsightEngineState
+```
+- 所有 stage handler 遵循同一签名
+- 在 graph 的 handlers dict 中注册
+
+### Linter 签名
+
+```
+lint(state: InsightEngineState) -> dict  # {passed, issues, metrics, retryable}
+```
+- 检查 stage 产物是否满足字段合同
+- 返回统一的 lint_result 格式
+
+## 外部 API
+
+无外部 REST API。当前系统为 CLI 工具，通过 `run_chat.py` 和 `run_full_pipeline.py` 入口运行。

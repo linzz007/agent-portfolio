@@ -1,0 +1,124 @@
+{
+  "project": "Daily AI Insight Engine (Claude Harness Edition)",
+  "purpose": "用结构化 Harness 工程实现每日新闻洞察、报告和可视化，同时构建面向 Claude Code 等 AI 编程助手的 Coding Agent Harness 维护体系。",
+  "features": [
+    {
+      "id": "F001",
+      "name": "真实数据抓取",
+      "priority": "P0",
+      "status": "done",
+      "acceptance": [
+        "可以抓取 global 数据源",
+        "可以抓取 AI 数据源",
+        "原始数据落盘到 data/raw/{run_id}/raw_items.json"
+      ]
+    },
+    {
+      "id": "F002",
+      "name": "数据清洗和标签保留",
+      "priority": "P0",
+      "status": "done",
+      "acceptance": [
+        "输出 global_cleaned_items 和 ai_cleaned_items",
+        "保留非 AI 信息并打标签",
+        "清洗结果落盘到 data/processed/{run_id}/cleaned_items.json"
+      ]
+    },
+    {
+      "id": "F003",
+      "name": "LLM 结构化事件抽取",
+      "priority": "P0",
+      "status": "done",
+      "acceptance": [
+        "输出 structured_events schema",
+        "有 schema linter",
+        "LLM 不可用时有 fallback"
+      ]
+    },
+    {
+      "id": "F004",
+      "name": "ReAct 洞察分析",
+      "priority": "P0",
+      "status": "done",
+      "acceptance": [
+        "使用受限 action 分析数据",
+        "输出 analysis_result",
+        "保留 react_trace"
+      ]
+    },
+    {
+      "id": "F005",
+      "name": "ReAct 报告生成和可视化",
+      "priority": "P0",
+      "status": "done",
+      "acceptance": [
+        "输出 Markdown 报告",
+        "输出 charts.html",
+        "输出 report_manifest.json"
+      ]
+    },
+    {
+      "id": "F006",
+      "name": "Runtime stage gate + Hook slot system",
+      "priority": "P0",
+      "status": "done",
+      "acceptance": [
+        "每个 stage 后检查最低产物合格性",
+        "不合格时按策略重跑",
+        "gate 结果写入 state 和 pipeline summary",
+        "StageHooks 插槽系统支持注册 before/after 监听器",
+        "linter 作为 after-stage 监听器挂载在 hook 插槽上"
+      ]
+    },
+    {
+      "id": "F007",
+      "name": "Coding Agent Harness 文件",
+      "priority": "P0",
+      "status": "done",
+      "acceptance": [
+        "存在 AGENTS.md，且明确它约束 Claude Code / Codex / Cursor 如何改仓库",
+        "AGENTS.md 区分 Coding Agent Harness 和 Runtime Agent Harness",
+        "存在 feature_list.json 记录功能完成标准",
+        "存在 progress.json 记录跨会话学习进度",
+        "存在 scripts/harness_linter.py 将项目级规则变成可执行检查",
+        "存在完整的 docs/ 结构化知识库"
+      ]
+    },
+    {
+      "id": "F008",
+      "name": "对话入口和日报 Skill",
+      "priority": "P0",
+      "status": "done",
+      "acceptance": [
+        "普通消息不触发完整流程",
+        "日报意图触发 daily_news_report_skill",
+        "Skill 返回报告、图表和 pipeline summary 路径"
+      ]
+    },
+    {
+      "id": "F009",
+      "name": "CI/CD Harness 检查",
+      "priority": "P1",
+      "status": "done",
+      "acceptance": [
+        "存在 .github/workflows/harness.yml",
+        "CI 自动运行 compileall",
+        "CI 自动运行 harness_linter",
+        "CI 自动运行 pytest"
+      ]
+    },
+    {
+      "id": "F010",
+      "name": "结构化知识库 (docs/)",
+      "priority": "P0",
+      "status": "done",
+      "acceptance": [
+        "存在 docs/architecture/ 含 overview、boundaries、data-flow",
+        "存在 docs/conventions/ 含 README、naming、error-handling、testing、logging",
+        "存在 docs/design/ 含各功能设计文档并标注 Status",
+        "存在 docs/plans/ 含 current-sprint 和 backlog",
+        "存在 docs/reference/ 含 api-spec 和 error-codes"
+      ]
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+# Runtime and local configuration
+.env
+.env.*
+!.env.example
+*.db
+*.sqlite
+*.sqlite3
+*.log
+*.tmp
+*.bak
+*.swp
+*.swo
+
+# Python
+__pycache__/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.venv/
+venv/
+dist/
+build/
+
+# Node
+node_modules/
+.next/
+.cache/
+
+# Artifacts and private documents
+*.docx
+*.pdf
+*.zip
+*.rar
+*.7z
+data/memory/
+docker/volumes*/

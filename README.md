@@ -1,6 +1,6 @@
 # Agent Portfolio
 
-这是一个面向 Agent / LLM 应用工程 / Agent Runtime / Agent Harness 岗位的作品集仓库，汇总 4 个脱敏后的核心项目。每个子项目都保留独立 README、代码、测试与可公开样例数据，方便面试官按主题快速浏览。
+这是一个面向 Agent / LLM 应用工程 / Agent Runtime / Agent Harness 岗位的作品集仓库，汇总 5 个脱敏后的核心项目。每个子项目都保留独立 README、代码、测试与可公开样例数据，方便面试官按主题快速浏览。
 
 ## Project Index
 
@@ -10,6 +10,7 @@
 | [CoursePilot Agent Runtime](projects/coursepilot-agent-runtime) | 课程学习 Agent Runtime，重点展示 RAG、Memory、MCP 工具接入、上下文预算和 RunArtifact 留痕。 |
 | [myAgent Table Reasoning](projects/myagent-table-reasoning) | 复杂表格问答推理系统，重点展示风险自适应路由、证据构建、确定性算子和 token 成本评估。 |
 | [Campus Career Agent Dify Case Study](projects/campus-career-agent-dify-case-study) | 高校就业辅导 Agent 脱敏案例，重点展示 Dify 二次开发、业务模型、角色权限、知识库问答和 ToB 交付适配。 |
+| [Daily AI Insight Engine Harness](projects/daily-ai-insight-engine-harness) | AI 舆情日报生成 Harness，重点展示 Coding Agent Harness、Stage Graph、Hook、Gate、Tool Gateway 和报告产物约束。 |
 
 ## Positioning
 
@@ -29,6 +30,7 @@ agent-portfolio/
     coursepilot-agent-runtime/
     myagent-table-reasoning/
     campus-career-agent-dify-case-study/
+    daily-ai-insight-engine-harness/
 ```
 
 ## Sanitization
@@ -48,3 +50,4 @@ agent-portfolio/
 2. 看 `coursepilot-agent-runtime`：课程学习 Agent Runtime，重点展示 RAG、Memory、MCP 工具接入、上下文预算和 RunArtifact 留痕。
 3. 看 `myagent-table-reasoning`：复杂表格问答推理系统，重点展示风险自适应路由、证据构建、确定性算子和 token 成本评估。
 4. 看 `campus-career-agent-dify-case-study`：高校就业辅导 Agent 脱敏案例，重点展示 Dify 二次开发、业务模型、角色权限、知识库问答和 ToB 交付适配。
+5. 看 `daily-ai-insight-engine-harness`：AI 舆情日报生成 Harness，重点展示 Coding Agent Harness、Stage Graph、Hook、Gate、Tool Gateway 和报告产物约束。

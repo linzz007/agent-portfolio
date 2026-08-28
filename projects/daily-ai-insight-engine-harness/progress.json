@@ -1,0 +1,61 @@
+{
+  "project": "Daily AI Insight Engine (Claude Harness Edition)",
+  "current_learning_goal": "完成 Coding Agent Harness 重构，使项目能被 Claude Code 自主维护：理解 AGENTS.md 地图模式 + docs/ 结构化知识库 + harness_linter CI 约束的完整工作流。",
+  "last_updated": "2026-05-28",
+  "completed": [
+    "完成真实数据抓取 stage",
+    "完成清洗和标签保留 stage",
+    "完成 LLM 结构化抽取 stage",
+    "完成 ReAct 分析 stage",
+    "完成 ReAct 报告生成 stage",
+    "合并 skill 为 daily_news_report 总 Skill",
+    "新增 conversation router，让普通对话和日报生成分流",
+    "新增可执行 Skill 层 daily_news_report.py",
+    "补齐 AGENTS.md 中 Coding Agent Harness 与 Runtime Agent Harness 的边界说明",
+    "增强 scripts/harness_linter.py，让项目级 AI 编程规则可被静态检查",
+    "新增 .github/workflows/harness.yml",
+    "重构 Hook 系统为 StageHooks 插槽系统",
+    "创建 docs/ 结构化知识库：architecture/、conventions/、design/、plans/、reference/",
+    "编写架构文档：overview.md、boundaries.md、data-flow.md",
+    "编写编码规范：naming.md、error-handling.md、testing.md、logging.md",
+    "编写功能设计文档并标注 Status 标记",
+    "创建新项目 insight_engine_claude 完整目录结构"
+  ],
+  "active_harness_concepts": [
+    "AGENTS.md 地图模式：面向任务的快速导航，而非百科全书式说明",
+    "docs/ 分层知识库：architecture（稳定）→ conventions（规范）→ design（功能）→ plans（计划）→ reference（参考）",
+    "StageHooks 插槽系统：on_before / on_after 注册，fire_before / fire_after 触发",
+    "Hook（真正的）：观察、快照、记录——不影响流程路由",
+    "Linter：检查产物合同，返回 passed/retryable——graph 据此决策",
+    "Stage：执行业务逻辑，产出 artifact",
+    "Tool Gateway：运行时工具白名单控制",
+    "Context Router：每个 stage 能看到的 state 字段和运行时文档",
+    "AGENTS.md 管 Claude Code / Codex / Cursor 的长期项目规则",
+    "feature_list.json 管功能完成标准",
+    "progress.json 管跨会话学习进度",
+    "scripts/harness_linter.py 把项目级规则变成可执行检查",
+    "CI 把 compileall、harness_linter 和 tests 变成自动约束"
+  ],
+  "next_steps": [
+    {
+      "order": 1,
+      "task": "运行 python scripts/harness_linter.py 验证所有 Harness 检查通过"
+    },
+    {
+      "order": 2,
+      "task": "运行 python -m pytest 验证所有单元测试通过"
+    },
+    {
+      "order": 3,
+      "task": "运行 python run_chat.py '帮我生成今日新闻分析报告' 端到端验证"
+    },
+    {
+      "order": 4,
+      "task": "亲手给 harness_linter.py 加一条新规则，触发一次报红，再修好它——体会 Harness 闭环"
+    },
+    {
+      "order": 5,
+      "task": "用 Claude Code 打开本项目，让它根据 AGENTS.md 的导航自行定位和修改一处代码"
+    }
+  ]
+}

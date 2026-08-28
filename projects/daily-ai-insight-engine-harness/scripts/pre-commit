@@ -1,0 +1,179 @@
+#!/usr/bin/env bash
+# ============================================================================
+# Coding-Agent Pre-Commit Hook
+# ============================================================================
+# 这个 hook 在每次 git commit 之前自动运行。
+# 它检查代码是否满足 Coding Agent Harness 的最低质量标准。
+#
+# 每条报错都使用 ❌ / ✅ FIX / 📖 See 三要素格式，
+# 让 AI 编程助手（Claude Code / Codex / Cursor）自动定位和修复问题。
+#
+# 安装方式：
+#   cp scripts/pre-commit .git/hooks/pre-commit
+#   chmod +x .git/hooks/pre-commit
+# 或使用自动安装：
+#   python scripts/harness_linter.py  # 会提示缺少此 hook 时如何安装
+# ============================================================================
+
+set -euo pipefail
+
+# 颜色定义
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[1;33m'
+CYAN='\033[0;36m'
+NC='\033[0m' # No Color
+
+# 项目根目录
+PROJECT_ROOT="$(cd "$(dirname "$0")/.." && pwd)"
+cd "$PROJECT_ROOT"
+
+PASSED=0
+FAILED=0
+TOTAL=0
+
+# ------------------------------------------------------------------
+# 辅助函数
+# ------------------------------------------------------------------
+
+step_pass() {
+    echo -e "  ${GREEN}✅ PASS${NC}  $1"
+    PASSED=$((PASSED + 1))
+    TOTAL=$((TOTAL + 1))
+}
+
+step_fail() {
+    echo -e "  ${RED}❌ FAIL${NC}  $1"
+    FAILED=$((FAILED + 1))
+    TOTAL=$((TOTAL + 1))
+}
+
+# ------------------------------------------------------------------
+# Gate 1: Python 编译检查
+# ------------------------------------------------------------------
+
+echo ""
+echo -e "${CYAN}━━━ Gate 1/4: Python 编译检查 ━━━${NC}"
+echo ""
+
+if python3 -m compileall -q src scripts tests 2>&1; then
+    step_pass "所有 Python 文件编译通过"
+else
+    step_fail "Python 编译失败"
+    echo ""
+    echo -e "${RED}❌ 有 Python 文件存在语法错误。${NC}"
+    echo -e "${GREEN}✅ FIX: 检查上面的编译错误输出，修复语法问题后重试。${NC}"
+    echo -e "${CYAN}📖 See: 运行 python3 -m compileall src scripts tests 查看详细错误${NC}"
+    echo ""
+fi
+
+# ------------------------------------------------------------------
+# Gate 2: Harness Linter
+# ------------------------------------------------------------------
+
+echo ""
+echo -e "${CYAN}━━━ Gate 2/4: Harness 静态约束检查 ━━━${NC}"
+echo ""
+
+LINT_OUTPUT=$(python3 scripts/harness_linter.py --json 2>&1)
+LINT_EXIT=$?
+
+if [ $LINT_EXIT -eq 0 ]; then
+    step_pass "Harness 静态检查全部通过"
+else
+    step_fail "Harness 静态检查未通过"
+
+    # 提取并展示每个具体问题
+    ISSUE_COUNT=$(echo "$LINT_OUTPUT" | python3 -c "import sys,json; d=json.load(sys.stdin); print(d['total_issues'])" 2>/dev/null || echo "?")
+    echo ""
+    echo -e "${RED}❌ 发现 ${ISSUE_COUNT} 个 Harness 工程约束问题：${NC}"
+    echo ""
+
+    # 用 --quiet 模式重新运行，获取简洁的问题列表
+    python3 scripts/harness_linter.py --quiet 2>&1 || true
+
+    echo ""
+    echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo -e "${YELLOW}💡 提示：上面的每条报错都包含：${NC}"
+    echo -e "${YELLOW}   ❌ = 什么问题${NC}"
+    echo -e "${YELLOW}   ✅ FIX = 怎么修改（含具体步骤或代码）${NC}"
+    echo -e "${YELLOW}   📖 See = 去哪个文档看详细说明${NC}"
+    echo -e "${YELLOW}   AI 编程助手可以据此自动修复这些问题。${NC}"
+    echo -e "${YELLOW}━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━${NC}"
+    echo ""
+fi
+
+# ------------------------------------------------------------------
+# Gate 3: 单元测试
+# ------------------------------------------------------------------
+
+echo ""
+echo -e "${CYAN}━━━ Gate 3/4: 单元测试 ━━━${NC}"
+echo ""
+
+if python3 -m pytest -q 2>&1; then
+    step_pass "所有单元测试通过"
+else
+    step_fail "单元测试未通过"
+    echo ""
+    echo -e "${RED}❌ 有测试用例失败。${NC}"
+    echo -e "${GREEN}✅ FIX: 检查上面的 pytest 输出，定位失败的测试，修复代码后重新运行。${NC}"
+    echo -e "${CYAN}📖 See: docs/conventions/testing.md 了解测试规范${NC}"
+    echo ""
+fi
+
+# ------------------------------------------------------------------
+# Gate 4: 文件大小检查
+# ------------------------------------------------------------------
+
+echo ""
+echo -e "${CYAN}━━━ Gate 4/4: 文件大小检查（单文件 ≤ 300 行）━━━${NC}"
+echo ""
+
+MAX_LINES=300
+OVER_SIZE=0
+
+while IFS= read -r -d '' py_file; do
+    LINES=$(wc -l < "$py_file")
+    if [ "$LINES" -gt "$MAX_LINES" ]; then
+        REL="${py_file#$PROJECT_ROOT/}"
+        if [ $OVER_SIZE -eq 0 ]; then
+            step_fail "存在超大文件"
+            echo ""
+        fi
+        echo -e "${RED}❌ ${REL} 有 ${LINES} 行（上限 ${MAX_LINES}）${NC}"
+        echo -e "${GREEN}✅ FIX: 将 ${REL} 拆分为更小的模块。辅助函数移到 utils/，子逻辑拆成独立文件。${NC}"
+        echo -e "${CYAN}📖 See: docs/conventions/naming.md 了解文件组织规范${NC}"
+        echo ""
+        OVER_SIZE=$((OVER_SIZE + 1))
+    fi
+done < <(find src -name '*.py' -print0 2>/dev/null)
+
+if [ $OVER_SIZE -eq 0 ]; then
+    step_pass "所有源文件在行数限制内"
+fi
+
+# ------------------------------------------------------------------
+# 最终判决
+# ------------------------------------------------------------------
+
+echo ""
+echo -e "${CYAN}=====================================================${NC}"
+echo -e "${CYAN}  Pre-Commit 检查结果${NC}"
+echo -e "${CYAN}=====================================================${NC}"
+echo -e "  总计: ${TOTAL} 项  |  ${GREEN}通过: ${PASSED}${NC}  |  ${RED}失败: ${FAILED}${NC}"
+echo ""
+
+if [ $FAILED -gt 0 ]; then
+    echo -e "${RED}⛔ COMMIT 被阻止：${FAILED} 项检查未通过${NC}"
+    echo ""
+    echo -e "${YELLOW}请修复上面的问题后重试 commit。${NC}"
+    echo -e "${YELLOW}每条报错都包含 ✅ FIX（怎么改）和 📖 See（去哪看），${NC}"
+    echo -e "${YELLOW}AI 编程助手可以直接根据这些信息自动修复。${NC}"
+    echo ""
+    exit 1
+fi
+
+echo -e "${GREEN}✅ 所有检查通过，允许 commit${NC}"
+echo ""
+exit 0
