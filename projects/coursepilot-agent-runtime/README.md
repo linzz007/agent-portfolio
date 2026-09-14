@@ -1,4 +1,4 @@
-﻿# CoursePilot Agent Runtime | 基于 RAG + Memory + MCP 的课程学习 Agent Runtime
+# CoursePilot Agent Runtime | 基于 RAG + Memory + MCP 的课程学习 Agent Runtime
 
 CoursePilot 面向大学课程学习场景，目标不是做一个单轮问答 Demo，而是解决“学生持续学习时，回答要有教材依据、练习结果要能沉淀为后续复习依据、长轮次上下文不能失控”的问题。
 
@@ -57,14 +57,6 @@ py -3 -m pytest
 py -3 scripts/perf/eval_rag_retrieval.py
 ```
 
-## 面试讲法
-
-这个项目重点表达“我能把一个 Agent 拆成可运行、可观察、可优化的工程链路”。面试中可以围绕三个问题展开：
-
-- 为什么课程学习 Agent 需要 Memory，而普通 RAG 不够？
-- 为什么要做 ContextBudgeter，具体裁剪了哪些内容？
-- 检索指标和上下文指标怎么验证，失败 case 怎么定位？
-
 ## 脱敏说明
 
-发布版已移除真实 `.env`、本地 memory.db、个人学习计划和面试备考文档，只保留核心代码、公开课程 fixture、测试和可复现实验脚本。
+发布版已移除真实 `.env`、本地 memory.db、个人文件和本地私有文档，只保留核心代码、公开课程 fixture、测试和可复现实验脚本。

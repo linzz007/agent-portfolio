@@ -1,4 +1,4 @@
-﻿# Insight Workbench | 智能研判 Agent 系统
+# Insight Workbench | 智能研判 Agent 系统
 
 Insight Workbench 面向个人与团队的信息获取和研判场景。系统以 AI 技术更新、政策规则和行业事件为应用对象，结合 Wiki 画像、受控报告 workflow、Subagent 核验与运行记录，把外部资料转化为可追问、可核查、可复盘的分析报告。
 
@@ -57,14 +57,6 @@ py -3 -m pytest
 py -3 scripts/run_workbench_smoke.py
 py -3 scripts/run_workbench_dialogue_acceptance.py
 ```
-
-## 面试讲法
-
-这个项目重点表达“我理解 Harness 不是名词，而是控制 Agent 执行边界的工程方法”。面试中可以围绕三个问题展开：
-
-- 为什么 `/report` 适合 workflow，而不是完全交给自由 Agent Loop？
-- Subagent 解决的是上下文隔离和证据核验问题，不是为了堆多智能体概念。
-- Wiki 画像让系统能结合用户背景分析外部资料，而不是只做通用新闻总结。
 
 ## 脱敏说明
 

@@ -205,7 +205,7 @@ scripts/perf/eval_rag_retrieval.py
 \item \textbf{RAG检索优化与回归评测：}构建8份线性代数讲义、16个课程问答case与gold\_doc\_ids标注，评估Dense、BM25和Hybrid Retrieval的hit@k、top1 accuracy、precision@k与检索延迟；通过评测定位默认RRF候选集过宽导致的top1排序退化，并调整候选集融合策略，使Hybrid top1 accuracy由18.75\%恢复至100\%，p95检索延迟降低约15.7\%。
 ```
 
-如果担心 16-case 太小，可以面试时这样补一句：
+由于当前评测集规模较小，报告结论应限定在当前课程 fixture 与测试样例范围内：
 
 ```text
 这个结果不是为了证明大规模线上收益，而是为了证明我把 RAG 从主观 demo 变成了可评测、可回归的工程链路；后续只要扩充真实课程 case，就可以复用同一套指标做持续优化。
@@ -223,4 +223,4 @@ context_relevance
 LLM-as-Judge
 ```
 
-这样面试官继续追问“你怎么评估最终回答质量”时，就能从当前检索评测自然过渡到答案忠实度评测。
+后续可以在检索评测基础上继续补充答案忠实度、引用一致性和最终回答质量评估。

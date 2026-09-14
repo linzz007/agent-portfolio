@@ -1,4 +1,4 @@
-﻿# Campus Career Agent Dify Case Study | 高校就业辅导 Agent Dify 二次开发脱敏案例
+# Campus Career Agent Dify Case Study | 高校就业辅导 Agent Dify 二次开发脱敏案例
 
 这是一个基于 Dify 二次开发的高校就业辅导 Agent ToB 交付案例。原项目面向学生和教师两类用户，覆盖简历生成、岗位推荐、政策问答、面试辅导和班级就业分析。本仓库只保留可公开的脱敏代码片段和设计说明，用于呈现业务建模、平台适配、角色权限和交付工程能力。
 
@@ -39,10 +39,6 @@
 | `docs/operation-log-design.md` | 操作日志设计说明。 |
 | `examples/test_job_api_connect_redacted.py` | 外部岗位接口连接的脱敏示例。 |
 | `examples/test_operation_log.py` | 操作日志测试示例。 |
-
-## 面试讲法
-
-这个项目适合作为业务落地补充案例：重点不是 Dify 本身，而是如何把一个平台型 Agent 接入真实 ToB 场景，处理角色、数据、流程和交付边界。
 
 ## 脱敏说明
 

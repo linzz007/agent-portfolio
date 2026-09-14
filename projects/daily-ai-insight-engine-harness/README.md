@@ -1,4 +1,4 @@
-﻿# Daily AI Insight Engine Harness | 新闻分析 Agent Harness
+# Daily AI Insight Engine Harness | 新闻分析 Agent Harness
 
 Daily AI Insight Engine Harness 是一个较小规模的 Harness 机制验证项目，用新闻日报生成场景验证 `State -> Graph -> Hook -> Gate -> Artifact` 的受控 workflow。它可以看作 Insight Workbench 中 `/report` 报告链路的早期实验形态。
 
@@ -43,10 +43,6 @@ py -3 -m pytest
 py -3 scripts/harness_linter.py
 py -3 run_chat.py "生成今日 AI 新闻分析报告"
 ```
-
-## 面试讲法
-
-这个项目适合作为 Harness 基础机制的补充说明。它的价值不在“新闻分析本身”，而在于展示如何把一个容易漂移的 LLM workflow 变成有状态、有阶段、有质量门、有产物留痕的可调试系统。
 
 ## 脱敏说明
 
