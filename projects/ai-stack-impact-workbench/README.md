@@ -1,21 +1,38 @@
-# AI Stack Impact Workbench | AI 技术生态智能研判 Agent Harness
+﻿# Insight Workbench | 智能研判 Agent 系统
 
-AI Stack Impact Workbench 面向 AI 工程师与研发/运营团队的持续外部变化研判场景，统一处理技术发布、政策规则、行业事件和新闻快照等外部信息。系统通过对话入口维护企业/项目画像，将外部事件转化为带证据链、风险分级和后续建议的结构化报告，并保留每轮运行的上下文、工具调用、子智能体委派与产物记录。
+Insight Workbench 面向个人与团队的信息获取和研判场景。系统以 AI 技术更新、政策规则和行业事件为应用对象，结合 Wiki 画像、受控报告 workflow、Subagent 核验与运行记录，把外部资料转化为可追问、可核查、可复盘的分析报告。
 
-## 核心问题
+## 待解决问题
 
-- 外部信息源数量多，人工筛选与企业/项目画像匹配成本高。
-- 通用对话模型可以总结信息，但难以稳定保留证据来源、工具边界、上下文来源和运行过程。
-- 影响研判需要可回溯、可审计和可复盘，不能只依赖单次模型输出。
+- 外部资料分散在新闻、官方文档、社区文章和政策文本中，人工筛选成本高。
+- 通用对话模型可以总结资料，但容易脱离用户自己的项目背景和关注目标。
+- 报告生成涉及采集、清洗、去重、分析和生成多个阶段，单次模型调用难以稳定约束。
+- 分析结论如果缺少来源、角色质疑和运行记录，后续很难追问或复盘。
 
-## 核心设计
+## 关键动作
 
-1. **统一运行入口**：普通对话、`/report` 外部变化分析和动态子智能体委派都进入同一个 TurnCoordinator，避免每个功能各写一套流程。
-2. **Skill 编排**：通过 SkillManifest 定义 execution_mode、allowed_tools、allowed_subagents、context_policy 和 artifact 类型，让不同任务有明确能力边界。
-3. **动态 Subagent**：主 AgentLoop 根据问题复杂度委派 analyst、skeptic、verifier 等角色；子智能体使用独立 Role Manifest、TaskBrief、工具权限和输出 Schema。
-4. **工具治理**：ToolGateway 与 PermissionEngine 负责工具白名单、deny/ask/allow 决策和工具审计，避免模型绕过业务规则直接调用工具。
-5. **上下文治理**：ContextManifest 按任务阶段构造上下文包，显式记录哪些 memory、evidence、history 被放入模型上下文。
-6. **证据优先报告**：高风险结论必须绑定 fact_id / source_ref；证据不足时降级为观察项或待确认项。
+1. **受控报告 Workflow**
+   将 `/report` Skill 嵌入主 `AgentLoop`，在政策分析链路中以 `State` 保存中间结果、`Graph` 控制阶段流转，通过 Context 投影、ToolGateway 与 Hook / Gate 限定可见信息、工具权限和阶段输出，支持有限重试、失败终止与 HTML 报告生成。
+
+2. **Subagent 调度与上下文隔离**
+   针对单次分析缺少专门质疑、子任务上下文和工具权限容易混用的问题，在主 `AgentLoop` 中按需委派分析、质疑和核验任务；通过角色配置、上下文隔离、工具白名单、执行预算和 Schema 校验约束子任务，将结果回填主 Agent，并用 Trace 关联父子任务。
+
+3. **Wiki 画像与背景复用**
+   通过 Wiki 维护背景事实、关注方向和项目上下文，以 SQLite 同步事实索引，结合本轮问题检索相关背景；按 token 预算组织 Wiki、历史消息和报告摘要，保留事实与资料引用，支持画像更新后的背景复用和报告追问。
+
+4. **证据与产物留存**
+   报告产物、工具调用、上下文片段、子任务结果和异常信息进入运行记录，方便区分“工具调用成功”和“业务结论正确”。
+
+## 项目边界
+
+这个项目不是为了证明“模型比通用 Agent 更聪明”，而是验证一种更接近企业落地的 Agent 组织方式：
+
+```text
+固定流程用 workflow 保证执行顺序
+不确定分析用 Agent / Subagent 处理
+用户背景用 Wiki 画像长期维护
+运行过程用 Trace / Artifact 保留证据
+```
 
 ## 核心模块与代码入口
 
@@ -24,13 +41,13 @@ AI Stack Impact Workbench 面向 AI 工程师与研发/运营团队的持续外�
 | `run_policy_api.py` | 后端启动入口和对话式 Workbench 服务入口。 |
 | `src/policy_impact/app/chat_workbench_service.py` | 对话、报告、trace、artifact 的服务层组织方式。 |
 | `src/policy_impact/harness/agent_loop.py` | 主 AgentLoop、动作执行和工具调用闭环。 |
+| `src/policy_impact/harness/agent_runtime.py` | 普通对话、report workflow 和子任务委派的统一运行入口。 |
 | `src/policy_impact/harness/context_manifest.py` | 上下文包构造与可见上下文记录。 |
-| `src/policy_impact/harness/permissions.py` | 工具权限、deny/ask/allow 和策略判断。 |
+| `src/policy_impact/harness/permissions.py` | 工具权限、deny / ask / allow 和策略判断。 |
 | `src/policy_impact/harness/subagent_planner.py` | 子智能体委派判断与任务拆分。 |
 | `src/policy_impact/harness/artifacts.py` | RunArtifact / 报告产物沉淀。 |
+| `src/policy_impact/company_wiki/loader.py` | Wiki 背景事实读取与结构化。 |
 | `plugins/skills/manifest.json` | SkillManifest 配置化能力边界。 |
-| `plugins/tools/registry.json` | 工具注册与工具边界。 |
-| `plugins/subagents/roles.json` | 子智能体角色定义。 |
 
 ## 验证方式
 
@@ -41,9 +58,13 @@ py -3 scripts/run_workbench_smoke.py
 py -3 scripts/run_workbench_dialogue_acceptance.py
 ```
 
-## 工程价值
+## 面试讲法
 
-项目重点不在于单次新闻总结，而在于把 Agent 放入有状态、有工具、有证据、有权限边界的业务链路中运行。通过 ContextManifest、ToolGateway、PermissionEngine、Gate 和 Artifact 机制，系统能够记录每轮运行证据，支持问题定位、运行复盘和报告沉淀。
+这个项目重点表达“我理解 Harness 不是名词，而是控制 Agent 执行边界的工程方法”。面试中可以围绕三个问题展开：
+
+- 为什么 `/report` 适合 workflow，而不是完全交给自由 Agent Loop？
+- Subagent 解决的是上下文隔离和证据核验问题，不是为了堆多智能体概念。
+- Wiki 画像让系统能结合用户背景分析外部资料，而不是只做通用新闻总结。
 
 ## 脱敏说明
 

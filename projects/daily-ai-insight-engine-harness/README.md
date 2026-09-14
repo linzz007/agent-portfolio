@@ -1,21 +1,26 @@
-# Daily AI Insight Engine Harness | Daily AI Insight Engine 新闻分析 Agent Harness
+﻿# Daily AI Insight Engine Harness | 新闻分析 Agent Harness
 
-Daily AI Insight Engine Harness 面向 AI 新闻与舆情日报生成场景，从 RSS/API 等公开来源抓取新闻，经过数据清洗、事件结构化、洞察分析和报告生成，输出 Markdown / HTML 报告，并记录每个阶段的运行证据。
+Daily AI Insight Engine Harness 是一个较小规模的 Harness 机制验证项目，用新闻日报生成场景验证 `State -> Graph -> Hook -> Gate -> Artifact` 的受控 workflow。它可以看作 Insight Workbench 中 `/report` 报告链路的早期实验形态。
 
-## 核心问题
+## 待解决问题
 
-- 日报生成流程包含抓取、清洗、结构化、分析和报告生成，单次模型调用难以覆盖完整链路。
-- LLM 阶段可能出现跳步、漏字段、格式漂移和不可解释失败。
+- 新闻日报生成包含抓取、清洗、结构化、分析和报告生成，单次模型调用很难稳定覆盖完整链路。
+- LLM 阶段容易出现跳步、漏字段、格式漂移和不可解释失败。
 - AI Coding 迭代过程中，新增字段、stage、prompt 或工具时容易造成契约漂移。
 
-## 核心设计
+## 关键动作
 
-1. **Coding Agent Harness**：通过 `AGENTS.md`、`CLAUDE.md`、`feature_list.json`、`progress.json` 和 harness linter 约束 AI 编程助手的修改边界。
-2. **Runtime Agent Harness**：用 State Contract、Stage Graph、Stage Runner、Hook、Gate 和 Artifact 约束运行时 Agent 的阶段输入输出。
-3. **阶段化流水线**：collect_raw_items -> clean_items -> structure_events -> analyze_insights -> generate_report。
-4. **工具白名单**：Tool Gateway 控制外部工具调用，避免 LLM 访问未声明能力。
-5. **上下文可见性**：Context Router 按 stage 构造上下文，减少把完整 state 无差别塞给模型。
-6. **产物校验与兜底**：每个阶段通过 linter / gate 检查字段、格式和报告产物，失败时记录错误并进入可解释兜底。
+1. **Runtime Harness**
+   用 State Contract、Stage Graph、Stage Runner、Hook、Gate 和 Artifact 约束运行时 Agent 的阶段输入输出。
+
+2. **阶段化流水线**
+   将日报生成拆成 `collect_raw_items -> clean_items -> structure_events -> analyze_insights -> generate_report`，每个阶段只处理明确输入和输出。
+
+3. **上下文与工具边界**
+   Context Router 按 stage 构造上下文，Tool Gateway 控制外部工具调用，避免把完整 state 无差别塞给模型。
+
+4. **Coding Agent Harness**
+   通过 `AGENTS.md`、`CLAUDE.md`、`feature_list.json`、`progress.json` 和 harness linter 约束 AI 编程助手的修改边界，降低工程结构漂移。
 
 ## 核心模块与代码入口
 
@@ -30,7 +35,6 @@ Daily AI Insight Engine Harness 面向 AI 新闻与舆情日报生成场景，�
 | `src/insight_engine/harness/context_router.py` | 阶段级上下文可见性控制。 |
 | `src/insight_engine/harness/tool_gateway.py` | 工具白名单和调用边界。 |
 | `scripts/harness_linter.py` | Harness 静态检查入口。 |
-| `docs/reference/state-contracts.md` | 状态合同文档。 |
 
 ## 验证方式
 
@@ -40,9 +44,9 @@ py -3 scripts/harness_linter.py
 py -3 run_chat.py "生成今日 AI 新闻分析报告"
 ```
 
-## 工程价值
+## 面试讲法
 
-项目以较小规模验证 State、Graph、Hook、Gate、Artifact 等 Harness 基础机制。它将确定性阶段与 LLM 阶段分离，并通过阶段质量门和 linter 降低流程跳步、契约漂移和错误难定位的问题。
+这个项目适合作为 Harness 基础机制的补充说明。它的价值不在“新闻分析本身”，而在于展示如何把一个容易漂移的 LLM workflow 变成有状态、有阶段、有质量门、有产物留痕的可调试系统。
 
 ## 脱敏说明
 
