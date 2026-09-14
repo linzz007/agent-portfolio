@@ -1,4 +1,4 @@
-# Agent Portfolio | 林哲正 Agent 工程作品集
+# Agent Portfolio | Agent 工程作品集
 
 本仓库汇总若干脱敏后的 Agent / LLM 应用工程项目，覆盖业务 Agent 落地、Agent Runtime / Harness、RAG / Memory / Context 工程化、工具治理、运行追踪与评测验证等方向。
 
